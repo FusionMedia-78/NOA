@@ -926,14 +926,14 @@ h4{ font-size: 16px; line-height: 1.32; }
 <!-- ============ HERO ============ -->
 <section class="hero" aria-label="NOA introduction">
   <video class="hero__video" autoplay muted loop playsinline poster="assets/hero-bg.png" aria-hidden="true">
-    <source src="assets/NOA-DRONE-WIRELESS-CHARGE-26SEC_LOOP-UHD%202_1.mp4" type="video/mp4" />
+    <source src="assets/NOA-hero-desktop.mp4" type="video/mp4" />
   </video>
   <script>
     (function(){
       var w = window.innerWidth || document.documentElement.clientWidth || screen.width;
       if(w > 0 && w <= 768){
         var v = document.currentScript.previousElementSibling;
-        v.querySelector('source').src = 'assets/NOA-DRONE-WIRELESS-CHARGE-26SEC_MOBILE.mp4';
+        v.querySelector('source').src = 'assets/NOA-hero-mobile.mp4';
         v.load();
       }
     })();
