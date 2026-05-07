@@ -1,0 +1,1166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Engineering brief — NOA</title>
+<meta name="description" content="Submit an engineering brief. NOA seeds Dev Kits to qualifying teams working on platforms that fit our wireless power technology." />
+
+<meta property="og:title" content="Engineering brief — NOA" />
+<meta property="og:description" content="Tell us what you're building. Qualifying engineering teams get a Dev Kit." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css" />
+
+<style>
+/* ============ contact.html — qualifier-specific ============ */
+
+.qualifier-grid{
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ----- qualifier card ----- */
+.qualifier{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* progress + score header */
+.qbar{
+  background: var(--c-ink);
+  color: #ffffff;
+  padding: 18px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.qbar__steps{
+  display: flex;
+  gap: 6px 18px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.qbar__step{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+}
+.qbar__step.is-done{ color: var(--c-teal-soft); }
+.qbar__step.is-active{
+  color: #ffffff;
+  border-bottom-color: var(--c-teal);
+}
+.qbar__step .qbar__dot{
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.22);
+  flex: 0 0 auto;
+}
+.qbar__step.is-done .qbar__dot,
+.qbar__step.is-active .qbar__dot{ background: var(--c-teal); }
+
+.qbar__score{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.qbar__score-label{ color: rgba(255,255,255,0.55); }
+.qbar__score-num{
+  color: #ffffff;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 14px;
+  min-width: 56px;
+}
+.qbar__score-track{
+  flex: 1 1 auto;
+  height: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 99px;
+  overflow: hidden;
+  min-width: 80px;
+  max-width: 240px;
+}
+.qbar__score-fill{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--c-teal-soft), var(--c-teal));
+  transition: width .35s ease;
+}
+
+/* step body */
+.qsteps{ padding: 36px 40px 32px; }
+.qstep{ display: none; }
+.qstep.is-active{ display: block; }
+.qstep__eyebrow{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+  margin: 0 0 8px;
+}
+.qstep h2{
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  color: var(--c-ink);
+}
+.qstep__sub{
+  font-size: 16px;
+  color: var(--c-mid);
+  margin: 0 0 28px;
+  line-height: 1.55;
+}
+
+/* fields */
+.field-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.field-row--single{ grid-template-columns: 1fr; }
+.field{ display: flex; flex-direction: column; }
+.field--full{ grid-column: 1 / -1; }
+.field label{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-charcoal);
+  margin-bottom: 8px;
+}
+.field__hint{
+  font-size: 13px;
+  color: var(--c-mid);
+  margin: 6px 0 0;
+  font-family: var(--font-body);
+  font-weight: 300;
+}
+.field input,
+.field select,
+.field textarea{
+  font: inherit;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--c-charcoal);
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 8px;
+  padding: 12px 14px;
+  outline: 0;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field textarea{ resize: vertical; min-height: 110px; font-family: var(--font-body); }
+.field select{
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--c-mid) 50%), linear-gradient(135deg, var(--c-mid) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 36px;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color: var(--c-teal);
+  box-shadow: 0 0 0 3px rgba(44,190,192,0.18);
+}
+.field--invalid input,
+.field--invalid select{
+  border-color: #c64545;
+  box-shadow: 0 0 0 3px rgba(198,69,69,0.15);
+}
+.field__error{
+  font-size: 13px;
+  color: #c64545;
+  margin: 6px 0 0;
+  font-family: var(--font-body);
+  font-weight: 300;
+  display: none;
+}
+.field--invalid .field__error{ display: block; }
+
+/* environment chips */
+.chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border: 1px solid var(--c-iron);
+  border-radius: 99px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--c-charcoal);
+  background: var(--c-white);
+  cursor: pointer;
+  user-select: none;
+  transition: all .12s ease;
+}
+.chip:hover{ border-color: var(--c-teal); color: var(--c-teal); }
+.chip input{
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+.chip.is-selected{
+  background: rgba(44,190,192,0.12);
+  border-color: var(--c-teal);
+  color: var(--c-ink);
+}
+.chip.is-selected::before{
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--c-teal);
+}
+
+/* review summary */
+.summary{
+  background: var(--c-fog);
+  border-radius: 10px;
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 32px;
+  margin-bottom: 22px;
+}
+.summary__row{ display: flex; flex-direction: column; gap: 2px; }
+.summary__row--full{ grid-column: 1 / -1; }
+.summary__label{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-mid);
+}
+.summary__value{
+  font-size: 15px;
+  color: var(--c-ink);
+  word-break: break-word;
+}
+.summary__value--muted{ color: var(--c-mid); font-style: italic; }
+
+.tier-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 99px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.tier-badge--high{ background: rgba(44,190,192,0.16); color: #176f70; }
+.tier-badge--mid{ background: #fff4dc; color: #8a5a00; }
+.tier-badge--low{ background: #f5e2e2; color: #8a2a2a; }
+.tier-badge .tier-dot{ width: 8px; height: 8px; border-radius: 50%; }
+.tier-badge--high .tier-dot{ background: var(--c-teal); }
+.tier-badge--mid .tier-dot{ background: #d99500; }
+.tier-badge--low .tier-dot{ background: #c64545; }
+
+/* qualifier nav */
+.qnav{
+  border-top: 1px solid var(--c-fog);
+  padding: 22px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.qnav__hint{
+  font-size: 13px;
+  color: var(--c-mid);
+  margin: 0;
+  flex: 1;
+}
+.qnav__btns{ display: flex; gap: 12px; }
+.btn--ghost-mid{
+  background: transparent;
+  color: var(--c-charcoal);
+  border: none;
+}
+.btn--ghost-mid:hover{ background: var(--c-fog); }
+
+/* success step */
+.qstep--success{ text-align: left; }
+.qstep--success h2{ font-size: 30px; }
+.qstep--success .qstep__lead{
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  margin: 0 0 24px;
+}
+.next-list{
+  list-style: none;
+  padding: 0;
+  margin: 0 0 22px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.next-list li{
+  background: var(--c-fog);
+  border-left: 4px solid var(--c-teal);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  font-size: 15px;
+  color: var(--c-charcoal);
+  line-height: 1.5;
+}
+.next-list strong{
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+  margin-bottom: 4px;
+}
+
+/* ----- sidebar ----- */
+.qside{ display: flex; flex-direction: column; gap: 20px; }
+.qside-card{
+  background: var(--c-fog);
+  border-radius: 12px;
+  padding: 24px 26px;
+}
+.qside-card h3{
+  font-size: 13px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-charcoal);
+  margin: 0 0 12px;
+}
+.qside-card p,
+.qside-card a{
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--c-ink);
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 700;
+  word-break: break-word;
+}
+.qside-card a:hover{ color: var(--c-teal); }
+.qside-card__sub{
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--c-mid);
+}
+.qside-card--accent{
+  background: var(--c-ink);
+  color: #ffffff;
+}
+.qside-card--accent h3{ color: var(--c-teal-soft); }
+.qside-card--accent p,
+.qside-card--accent a{ color: #ffffff; }
+.qside-card--accent a:hover{ color: var(--c-teal-soft); }
+.qside-card--accent .qside-card__sub{ color: rgba(255,255,255,0.7); }
+
+.gate-card{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 24px 26px;
+}
+.gate-card h3{
+  font-size: 13px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-charcoal);
+  margin: 0 0 16px;
+}
+.gate-card ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.gate-card li{
+  padding: 10px 0;
+  border-bottom: 1px solid var(--c-fog);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--c-ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gate-card li:last-child{ border-bottom: 0; }
+.gate-card .lock{
+  width: 14px; height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-mid);
+  flex: 0 0 auto;
+}
+.gate-card__foot{
+  margin-top: 14px;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--c-mid);
+  line-height: 1.5;
+}
+
+@media (max-width: 980px){
+  .qualifier-grid{ grid-template-columns: 1fr; gap: 32px; }
+  .qsteps{ padding: 28px 24px 24px; }
+  .qnav{ padding: 18px 24px; flex-direction: column; align-items: stretch; }
+  .qnav__btns{ width: 100%; }
+  .qnav__btns .btn{ flex: 1; }
+}
+@media (max-width: 768px){
+  .qbar{ padding: 16px 22px; }
+  .qbar__steps{ gap: 6px 14px; font-size: 10px; letter-spacing: 0.12em; }
+  .qbar__score-track{ max-width: none; }
+  .qstep h2{ font-size: 22px; }
+  .field-row{ grid-template-columns: 1fr; }
+  .summary{ grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="ticker" aria-label="Announcements">
+    <div class="ticker__inner" id="ticker">
+      <span class="ticker__flag" aria-hidden="true">🇦🇺</span>
+      <div class="ticker__item is-active">Designed and built in Australia</div>
+      <div class="ticker__item">Sovereign supply chain. No China-sourced components.</div>
+      <div class="ticker__item">Sovereign capability for AUKUS partners</div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__logo" aria-label="NOA home">
+        <img src="assets/logo.svg" alt="NOA" />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="tech.html">Technology</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html" aria-current="page">Request a Dev Kit</a>
+      </nav>
+      <div class="site-header__social">
+        <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" aria-label="NOA on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero page-hero--contact">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">Engineering brief</span>
+    <h1>Tell us what you're building.</h1>
+    <p class="page-hero__sub">Dev Kits are seeded to engineering teams working on platforms that fit the technology. The brief below qualifies the conversation in five minutes. No decks. No demos. Either we're a fit and you get a kit, or we say so honestly.</p>
+  </div>
+</section>
+
+<!-- ============ QUALIFIER ============ -->
+<section class="section">
+  <div class="section__inner">
+    <div class="qualifier-grid">
+
+      <!-- ===== qualifier card ===== -->
+      <div class="qualifier" id="qualifier" role="region" aria-label="Engineering brief">
+        <!-- bar: progress + score -->
+        <div class="qbar">
+          <div class="qbar__steps" id="qsteps-rail" aria-label="Progress">
+            <span class="qbar__step is-active" data-step="1"><span class="qbar__dot"></span>Identity</span>
+            <span class="qbar__step" data-step="2"><span class="qbar__dot"></span>Platform</span>
+            <span class="qbar__step" data-step="3"><span class="qbar__dot"></span>Technical</span>
+            <span class="qbar__step" data-step="4"><span class="qbar__dot"></span>Context</span>
+            <span class="qbar__step" data-step="5"><span class="qbar__dot"></span>Review</span>
+          </div>
+          <div class="qbar__score" aria-live="polite">
+            <span class="qbar__score-label">Fit score</span>
+            <span class="qbar__score-num"><span id="scoreNum">0</span> / 100</span>
+            <div class="qbar__score-track" aria-hidden="true">
+              <div class="qbar__score-fill" id="scoreFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- step bodies -->
+        <div class="qsteps">
+
+          <!-- STEP 1 — Identity -->
+          <div class="qstep is-active" data-step="1">
+            <p class="qstep__eyebrow">Step 1 of 5</p>
+            <h2>Who's asking?</h2>
+            <p class="qstep__sub">A work email and a real role tell us who we're building this with. Personal email addresses don't get a kit — that's the deal.</p>
+            <div class="field-row">
+              <div class="field" id="field-name">
+                <label for="q_name">Full name</label>
+                <input id="q_name" type="text" autocomplete="name" required>
+                <p class="field__error">Add your name so we know who to reply to.</p>
+              </div>
+              <div class="field" id="field-email">
+                <label for="q_email">Work email</label>
+                <input id="q_email" type="email" autocomplete="email" required>
+                <p class="field__hint">Free email providers (gmail, hotmail, etc.) aren't accepted.</p>
+                <p class="field__error">Use a work email — we don't seed kits to personal addresses.</p>
+              </div>
+              <div class="field" id="field-company">
+                <label for="q_company">Company</label>
+                <input id="q_company" type="text" autocomplete="organization" required>
+                <p class="field__error">Tell us where you work.</p>
+              </div>
+              <div class="field" id="field-role">
+                <label for="q_role">Role</label>
+                <select id="q_role" required>
+                  <option value="">Select a role</option>
+                  <option>Embedded / hardware engineer</option>
+                  <option>Mechanical / systems engineer</option>
+                  <option>Product or platform lead</option>
+                  <option>R&amp;D / innovation</option>
+                  <option>CTO / engineering leadership</option>
+                  <option>Procurement / supply chain</option>
+                  <option>Defence / government</option>
+                  <option>Investor / strategic</option>
+                  <option>Other</option>
+                </select>
+                <p class="field__error">Pick the closest match.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2 — Platform -->
+          <div class="qstep" data-step="2">
+            <p class="qstep__eyebrow">Step 2 of 5</p>
+            <h2>The platform.</h2>
+            <p class="qstep__sub">Where does NOA need to live? The platform type and the production stage tell us whether this is a research conversation or an integration conversation.</p>
+            <div class="field-row">
+              <div class="field" id="field-platform">
+                <label for="q_platform">Platform type</label>
+                <select id="q_platform" required>
+                  <option value="">Select a platform</option>
+                  <option>UAV / drone</option>
+                  <option>Warehouse robotics / AMR</option>
+                  <option>Ground robot / inspection</option>
+                  <option>Marine / subsea ROV</option>
+                  <option>Mining / industrial vehicle</option>
+                  <option>Defence platform (air / ground / maritime)</option>
+                  <option>Wearable / human-worn sensor</option>
+                  <option>Industrial sensor / IoT</option>
+                  <option>Other</option>
+                </select>
+                <p class="field__error">Pick the platform type.</p>
+              </div>
+              <div class="field" id="field-stage">
+                <label for="q_stage">Stage of development</label>
+                <select id="q_stage" required>
+                  <option value="">Select a stage</option>
+                  <option>Research / concept</option>
+                  <option>Prototype</option>
+                  <option>Pre-production</option>
+                  <option>Serial production</option>
+                </select>
+                <p class="field__error">Tell us how far along the platform is.</p>
+              </div>
+              <div class="field field--full">
+                <label for="q_volume">Estimated annual production volume (units)</label>
+                <input id="q_volume" type="number" min="0" inputmode="numeric" placeholder="e.g. 500">
+                <p class="field__hint">Approximate is fine — it tells us whether this is one-off or a fleet.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3 — Technical -->
+          <div class="qstep" data-step="3">
+            <p class="qstep__eyebrow">Step 3 of 5</p>
+            <h2>The technical envelope.</h2>
+            <p class="qstep__sub">Three numbers narrow our recommendation more than an hour of conversation. Approximate is fine — engineers always know the rough envelope.</p>
+            <div class="field-row">
+              <div class="field" id="field-power">
+                <label for="q_power">Required power (W)</label>
+                <input id="q_power" type="number" min="0" step="0.1" inputmode="decimal" required placeholder="e.g. 25">
+                <p class="field__hint">Continuous draw, not peak.</p>
+                <p class="field__error">A rough wattage helps us match the right module class.</p>
+              </div>
+              <div class="field" id="field-gap">
+                <label for="q_gap">Air gap available (mm)</label>
+                <input id="q_gap" type="number" min="0" step="0.1" inputmode="decimal" required placeholder="e.g. 8">
+                <p class="field__hint">Distance between TX and RX coils once integrated.</p>
+                <p class="field__error">An approximate gap (mm) is needed.</p>
+              </div>
+            </div>
+            <div class="field field--full" style="margin-bottom: 16px;">
+              <label>Operating environment <span style="font-weight:300; color: var(--c-mid); text-transform:none; letter-spacing:0;">— select all that apply</span></label>
+              <div class="chips" id="q_env">
+                <label class="chip"><input type="checkbox" value="Indoor">Indoor</label>
+                <label class="chip"><input type="checkbox" value="Outdoor">Outdoor</label>
+                <label class="chip"><input type="checkbox" value="Dusty">Dusty</label>
+                <label class="chip"><input type="checkbox" value="Wet / washdown">Wet / washdown</label>
+                <label class="chip"><input type="checkbox" value="Submerged">Submerged</label>
+                <label class="chip"><input type="checkbox" value="High temperature">High temperature</label>
+                <label class="chip"><input type="checkbox" value="Low temperature">Low temperature</label>
+                <label class="chip"><input type="checkbox" value="Vibration">Vibration</label>
+                <label class="chip"><input type="checkbox" value="Hazardous / explosive">Hazardous / explosive</label>
+                <label class="chip"><input type="checkbox" value="Vacuum / space">Vacuum / space</label>
+              </div>
+            </div>
+            <div class="field field--full">
+              <label for="q_current">What's the current charging approach?</label>
+              <textarea id="q_current" placeholder="Pogo pins, manual swap, plug, none yet, etc. — and what's wrong with it."></textarea>
+            </div>
+          </div>
+
+          <!-- STEP 4 — Context -->
+          <div class="qstep" data-step="4">
+            <p class="qstep__eyebrow">Step 4 of 5</p>
+            <h2>What you're trying to power.</h2>
+            <p class="qstep__sub">A few sentences in your own words. This is what Dave reads first — it tells us whether the technology fits and what to put in front of you next.</p>
+            <div class="field field--full" style="margin-bottom: 16px;">
+              <label for="q_brief">The brief</label>
+              <textarea id="q_brief" rows="5" placeholder="What does this platform do? Why does charging matter? What does success look like?"></textarea>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="q_timeline">Integration timeline</label>
+                <select id="q_timeline">
+                  <option value="">Select a timeline</option>
+                  <option>Already integrating — urgent</option>
+                  <option>Within 3 months</option>
+                  <option>3 – 6 months</option>
+                  <option>6 – 12 months</option>
+                  <option>12+ months / exploratory</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="q_jurisdiction">Primary deployment jurisdiction</label>
+                <select id="q_jurisdiction">
+                  <option value="">Select a region</option>
+                  <option>Australia</option>
+                  <option>United States</option>
+                  <option>United Kingdom</option>
+                  <option>Europe (EU)</option>
+                  <option>AUKUS multi-jurisdiction</option>
+                  <option>Asia-Pacific (other)</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5 — Review -->
+          <div class="qstep" data-step="5">
+            <p class="qstep__eyebrow">Step 5 of 5</p>
+            <h2>Review and send.</h2>
+            <p class="qstep__sub">Last look. The brief opens in your email client when you submit — nothing leaves the page until you press send.</p>
+
+            <div id="tierBadge" class="tier-badge tier-badge--low" aria-live="polite">
+              <span class="tier-dot" aria-hidden="true"></span>
+              <span id="tierLabel">Low fit — needs more detail</span>
+            </div>
+
+            <div class="summary" id="summary">
+              <!-- populated by JS -->
+            </div>
+
+            <p class="field__hint" style="margin: 0 0 8px;">By submitting you're agreeing for Dave at NOA to review and reply. We don't store anything on this site.</p>
+          </div>
+
+          <!-- STEP 6 — Success (post-submit) -->
+          <div class="qstep qstep--success" data-step="6">
+            <p class="qstep__eyebrow">Brief sent</p>
+            <h2>Now we read it.</h2>
+            <p class="qstep__lead">Your email client should have opened with your brief pre-filled. Once it lands with us, here's what happens next.</p>
+            <ul class="next-list">
+              <li><strong>Within two business days</strong>Dave reviews the brief against the technology fit, the platform, and the deployment context.</li>
+              <li><strong>If it's a fit</strong>You'll receive the engineer pack — full datasheet, integration playbook, certifications matrix and reference deployments — plus a proposed call to scope the kit configuration.</li>
+              <li><strong>If it's not a fit yet</strong>You'll hear back honestly. We don't ship modules to research-stage projects without a clear path to integration — it wastes everyone's time.</li>
+            </ul>
+            <p class="field__hint">If your email client didn't open, write to <a href="mailto:dpaull@noathebrand.com" style="color: var(--c-teal);">dpaull@noathebrand.com</a> directly.</p>
+          </div>
+        </div>
+
+        <!-- nav -->
+        <div class="qnav" id="qnav">
+          <p class="qnav__hint" id="qnavHint">Step 1 of 5 · Identity</p>
+          <div class="qnav__btns">
+            <button type="button" class="btn btn--ghost-mid" id="qBack" hidden>Back</button>
+            <button type="button" class="btn" id="qNext">Continue</button>
+            <button type="button" class="btn" id="qSubmit" hidden>Send the brief</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== sidebar ===== -->
+      <aside class="qside" aria-label="Direct contact and what's gated">
+        <div class="qside-card qside-card--accent">
+          <h3>Direct line</h3>
+          <p><a href="mailto:dpaull@noathebrand.com">dpaull@noathebrand.com</a></p>
+          <p class="qside-card__sub">Dave Paull, commercial lead — Australia and AUKUS partners.</p>
+        </div>
+
+        <div class="gate-card" aria-label="What qualifying briefs receive">
+          <h3>What qualifying briefs receive</h3>
+          <ul>
+            <li><span class="lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>Full module datasheet</li>
+            <li><span class="lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>Integration playbook</li>
+            <li><span class="lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>Certifications matrix</li>
+            <li><span class="lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>Reference deployments</li>
+            <li><span class="lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>A Dev Kit on your bench</li>
+          </ul>
+          <p class="gate-card__foot">Released after Dave reviews the brief — not on submission. We don't auto-send.</p>
+        </div>
+
+        <div class="qside-card">
+          <h3>Where we are</h3>
+          <p>Cicada Innovations<br>Eveleigh, Sydney NSW</p>
+          <p class="qside-card__sub">Australia's deeptech incubator — home of NOA's engineering team.</p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <img src="assets/NOA-Logo-White.svg" alt="NOA" />
+      <p>Australian-engineered contactless power for autonomous systems. Sovereign supply chain. Built for the field.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="tech.html">Technology</a></li>
+        <li><a href="contact.html">Dev Kit</a></li>
+        <li><a href="tech.html#roadmap">250&nbsp;W roadmap</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#sovereignty">Sovereignty</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="mailto:enquiries@noathebrand.com">enquiries@noathebrand.com</a></li>
+        <li><a href="mailto:dpaull@noathebrand.com">dpaull@noathebrand.com</a> · engineering briefs</li>
+        <li>Sydney, Australia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© 2026 NOA. All rights reserved.</span>
+    <span>Wireless power. Zero contact.</span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Ticker
+   ============================================================ */
+(function(){
+  var items = document.querySelectorAll('.ticker__item');
+  if(items.length < 2) return;
+  var i = 0;
+  var paused = false;
+  var rail = document.getElementById('ticker');
+  if(rail){
+    rail.addEventListener('mouseenter', function(){ paused = true; });
+    rail.addEventListener('mouseleave', function(){ paused = false; });
+  }
+  setInterval(function(){
+    if(paused) return;
+    items[i].classList.remove('is-active');
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-active');
+  }, 5000);
+})();
+
+/* ============================================================
+   Qualifier
+   ============================================================ */
+(function(){
+  var TOTAL_STEPS = 5;
+  var current = 1;
+
+  // free email providers blocked at the gate
+  var FREE_DOMAINS = [
+    'gmail.com','googlemail.com',
+    'yahoo.com','yahoo.co.uk','yahoo.co.au','yahoo.ca','ymail.com',
+    'hotmail.com','hotmail.co.uk','hotmail.com.au',
+    'outlook.com','outlook.com.au','live.com','live.com.au','msn.com',
+    'aol.com',
+    'icloud.com','me.com','mac.com',
+    'proton.me','protonmail.com','pm.me',
+    'mail.com','gmx.com','gmx.de',
+    'yandex.com','yandex.ru',
+    'tutanota.com','rediffmail.com','inbox.com','zohomail.com'
+  ];
+
+  function $(id){ return document.getElementById(id); }
+  function val(id){ var el = $(id); return el ? (el.value || '').trim() : ''; }
+
+  // ---------- field validation ----------
+  function emailDomain(email){
+    var at = email.lastIndexOf('@');
+    if(at < 0) return '';
+    return email.slice(at + 1).toLowerCase();
+  }
+  function isFreeEmail(email){
+    var d = emailDomain(email);
+    if(!d) return false;
+    return FREE_DOMAINS.indexOf(d) >= 0;
+  }
+  function isValidEmail(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function setInvalid(fieldId, invalid){
+    var f = $(fieldId);
+    if(!f) return;
+    f.classList.toggle('field--invalid', !!invalid);
+  }
+
+  function validateStep(step){
+    var ok = true;
+    if(step === 1){
+      if(!val('q_name'))   { setInvalid('field-name', true);  ok = false; } else setInvalid('field-name', false);
+      var em = val('q_email');
+      if(!em || !isValidEmail(em) || isFreeEmail(em)){
+        setInvalid('field-email', true); ok = false;
+      } else setInvalid('field-email', false);
+      if(!val('q_company')){ setInvalid('field-company', true); ok = false; } else setInvalid('field-company', false);
+      if(!val('q_role'))   { setInvalid('field-role', true);    ok = false; } else setInvalid('field-role', false);
+    }
+    if(step === 2){
+      if(!val('q_platform')){ setInvalid('field-platform', true); ok = false; } else setInvalid('field-platform', false);
+      if(!val('q_stage'))   { setInvalid('field-stage', true);    ok = false; } else setInvalid('field-stage', false);
+    }
+    if(step === 3){
+      if(!val('q_power')){ setInvalid('field-power', true); ok = false; } else setInvalid('field-power', false);
+      if(!val('q_gap'))  { setInvalid('field-gap', true);   ok = false; } else setInvalid('field-gap', false);
+    }
+    return ok;
+  }
+
+  // ---------- score ----------
+  function envCount(){
+    var nodes = document.querySelectorAll('#q_env input[type="checkbox"]');
+    var n = 0;
+    for(var i = 0; i < nodes.length; i++){ if(nodes[i].checked) n++; }
+    return n;
+  }
+  function envValues(){
+    var nodes = document.querySelectorAll('#q_env input[type="checkbox"]');
+    var out = [];
+    for(var i = 0; i < nodes.length; i++){ if(nodes[i].checked) out.push(nodes[i].value); }
+    return out;
+  }
+
+  function computeScore(){
+    var s = 0;
+    // identity (max 35)
+    var em = val('q_email');
+    if(em && isValidEmail(em) && !isFreeEmail(em)) s += 20;
+    if(val('q_company')) s += 5;
+    if(val('q_role'))    s += 5;
+    if(val('q_name'))    s += 5;
+
+    // platform (max 25)
+    if(val('q_platform')) s += 10;
+    var stage = val('q_stage');
+    if(stage === 'Serial production')  s += 15;
+    else if(stage === 'Pre-production') s += 12;
+    else if(stage === 'Prototype')      s += 8;
+    else if(stage === 'Research / concept') s += 4;
+
+    // volume scoring (separate, max 5)
+    var v = parseFloat(val('q_volume'));
+    if(!isNaN(v)){
+      if(v >= 1000) s += 5;
+      else if(v >= 100) s += 4;
+      else if(v >= 10)  s += 2;
+      else s += 1;
+    }
+
+    // technical (max 25)
+    if(val('q_power')) s += 10;
+    if(val('q_gap'))   s += 10;
+    if(envCount() > 0) s += 3;
+    if(val('q_current').length > 20) s += 2;
+
+    // context (max 10)
+    if(val('q_brief').length > 50) s += 6;
+    if(val('q_timeline')) s += 2;
+    if(val('q_jurisdiction')) s += 2;
+
+    if(s > 100) s = 100;
+    return s;
+  }
+
+  function tierFor(score){
+    if(score >= 80) return { cls: 'tier-badge--high', label: 'High fit — engineer pack on review', code: 'HIGH' };
+    if(score >= 50) return { cls: 'tier-badge--mid',  label: 'Review fit — Dave will respond personally', code: 'REVIEW' };
+    return            { cls: 'tier-badge--low',  label: 'Low fit — needs more detail',           code: 'LOW' };
+  }
+
+  // ---------- UI ----------
+  function setStep(n){
+    if(n < 1) n = 1;
+    if(n > TOTAL_STEPS + 1) n = TOTAL_STEPS + 1;
+    current = n;
+
+    // step bodies
+    var steps = document.querySelectorAll('.qstep');
+    steps.forEach(function(el){
+      var s = parseInt(el.getAttribute('data-step'), 10);
+      el.classList.toggle('is-active', s === current);
+    });
+
+    // progress rail
+    var rail = document.querySelectorAll('#qsteps-rail .qbar__step');
+    rail.forEach(function(el){
+      var s = parseInt(el.getAttribute('data-step'), 10);
+      el.classList.toggle('is-active', s === current);
+      el.classList.toggle('is-done', s < current);
+    });
+
+    // nav buttons
+    var back   = $('qBack');
+    var next   = $('qNext');
+    var submit = $('qSubmit');
+    var hint   = $('qnavHint');
+
+    if(current === TOTAL_STEPS + 1){
+      // success state
+      back.hidden = true;
+      next.hidden = true;
+      submit.hidden = true;
+      hint.textContent = 'Brief sent';
+      return;
+    }
+
+    back.hidden = current === 1;
+    if(current === TOTAL_STEPS){
+      next.hidden = true;
+      submit.hidden = false;
+      renderReview();
+    } else {
+      next.hidden = false;
+      submit.hidden = true;
+    }
+
+    var labels = ['Identity','Platform','Technical','Context','Review'];
+    hint.textContent = 'Step ' + current + ' of ' + TOTAL_STEPS + ' · ' + labels[current - 1];
+
+    // scroll to top of qualifier
+    var card = $('qualifier');
+    if(card && current > 1){
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function updateScore(){
+    var s = computeScore();
+    $('scoreNum').textContent = s;
+    $('scoreFill').style.width = s + '%';
+  }
+
+  function renderReview(){
+    var s = computeScore();
+    var tier = tierFor(s);
+    var badge = $('tierBadge');
+    badge.classList.remove('tier-badge--high','tier-badge--mid','tier-badge--low');
+    badge.classList.add(tier.cls);
+    $('tierLabel').textContent = tier.label;
+
+    var rows = [
+      ['Name',       val('q_name')],
+      ['Work email', val('q_email')],
+      ['Company',    val('q_company')],
+      ['Role',       val('q_role')],
+      ['Platform',   val('q_platform')],
+      ['Stage',      val('q_stage')],
+      ['Annual units', val('q_volume')],
+      ['Required power', val('q_power') ? val('q_power') + ' W' : ''],
+      ['Air gap',    val('q_gap') ? val('q_gap') + ' mm' : ''],
+      ['Environment', envValues().join(', ')],
+      ['Current charging approach', val('q_current')],
+      ['Brief',      val('q_brief')],
+      ['Timeline',   val('q_timeline')],
+      ['Jurisdiction', val('q_jurisdiction')]
+    ];
+
+    var html = '';
+    rows.forEach(function(r){
+      var label = r[0], value = r[1];
+      var fullClass = (label === 'Brief' || label === 'Current charging approach') ? ' summary__row--full' : '';
+      var displayValue = value || '<span class="summary__value summary__value--muted">— not provided —</span>';
+      html += '<div class="summary__row' + fullClass + '">' +
+                '<span class="summary__label">' + label + '</span>' +
+                '<span class="summary__value">' + (value ? escapeHtml(value) : '<span class="summary__value--muted">— not provided —</span>') + '</span>' +
+              '</div>';
+    });
+    $('summary').innerHTML = html;
+  }
+
+  function escapeHtml(s){
+    return String(s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+
+  // ---------- submit ----------
+  function submitBrief(){
+    var s = computeScore();
+    var tier = tierFor(s);
+    var lines = [
+      '── ENGINEERING BRIEF — NOA ──',
+      'Fit score: ' + s + ' / 100  (' + tier.code + ')',
+      '',
+      '── Identity ──',
+      'Name:        ' + val('q_name'),
+      'Work email:  ' + val('q_email'),
+      'Company:     ' + val('q_company'),
+      'Role:        ' + val('q_role'),
+      '',
+      '── Platform ──',
+      'Type:        ' + val('q_platform'),
+      'Stage:       ' + val('q_stage'),
+      'Annual vol:  ' + (val('q_volume') || 'not provided'),
+      '',
+      '── Technical ──',
+      'Power (W):   ' + (val('q_power') || 'not provided'),
+      'Air gap (mm):' + (val('q_gap') || 'not provided'),
+      'Environment: ' + (envValues().join(', ') || 'not provided'),
+      'Current charging approach:',
+      (val('q_current') || '— not provided —'),
+      '',
+      '── Context ──',
+      'Brief:',
+      (val('q_brief') || '— not provided —'),
+      '',
+      'Timeline:    ' + (val('q_timeline') || 'not provided'),
+      'Jurisdiction:' + (val('q_jurisdiction') || 'not provided'),
+      ''
+    ];
+    var subject = 'NOA brief [' + tier.code + ' ' + s + '] — ' + (val('q_company') || val('q_name'));
+    var body = lines.join('\n');
+    var url = 'mailto:dpaull@noathebrand.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = url;
+
+    // Move to success step regardless — the user can verify their client opened
+    setStep(TOTAL_STEPS + 1);
+  }
+
+  // ---------- chip toggle ----------
+  document.querySelectorAll('#q_env .chip').forEach(function(chip){
+    var input = chip.querySelector('input');
+    function sync(){ chip.classList.toggle('is-selected', input.checked); }
+    input.addEventListener('change', function(){ sync(); updateScore(); });
+    sync();
+  });
+
+  // ---------- listeners ----------
+  document.querySelectorAll('#qualifier input, #qualifier select, #qualifier textarea')
+    .forEach(function(el){
+      el.addEventListener('input',  updateScore);
+      el.addEventListener('change', updateScore);
+    });
+
+  // email blur -> immediate gate feedback
+  $('q_email').addEventListener('blur', function(){
+    var em = val('q_email');
+    if(em && (!isValidEmail(em) || isFreeEmail(em))){
+      setInvalid('field-email', true);
+    } else if(em){
+      setInvalid('field-email', false);
+    }
+  });
+
+  $('qNext').addEventListener('click', function(){
+    if(!validateStep(current)) return;
+    setStep(current + 1);
+  });
+  $('qBack').addEventListener('click', function(){
+    setStep(current - 1);
+  });
+  $('qSubmit').addEventListener('click', function(){
+    // soft-gate: scores below 30 are bounced back to step 3 with a hint
+    var s = computeScore();
+    if(s < 30){
+      setStep(3);
+      $('qnavHint').textContent = 'Add the technical envelope before sending — power and air gap are the minimum.';
+      return;
+    }
+    submitBrief();
+  });
+
+  // initial paint
+  setStep(1);
+  updateScore();
+})();
+</script>
+
+</body>
+</html>

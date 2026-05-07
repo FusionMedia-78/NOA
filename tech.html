@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Technology — NOA</title>
+<meta name="description" content="NOA wireless power: 1–500W programmable, up to 93% efficiency, 28°C operating temperature, 5–20mm contactless air gap. Six interchangeable coils, USB-C tuning, FOD/OCP/OVP." />
+
+<meta property="og:title" content="NOA Technology" />
+<meta property="og:description" content="Australian-engineered contactless wireless power. 1–500W programmable, up to 93% efficiency, 28°C operating temperature." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css" />
+
+<style>
+/* ============ tech.html — page-specific styles ============ */
+
+/* Section A — text-only intro, centred max-width */
+.tech-intro{
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+.tech-intro p{
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  margin: 0 0 18px;
+}
+.tech-intro__lead{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.25;
+  color: var(--c-ink);
+  margin: 0 0 28px;
+  letter-spacing: -0.01em;
+}
+
+/* Dock section — two-column: left text + right image */
+.tech-dock{
+  display: flex;
+  align-items: center;
+  gap: 64px;
+}
+.tech-dock .tech-intro{
+  flex: 1;
+  max-width: none;
+  margin: 0;
+  text-align: left;
+}
+.tech-dock__img{
+  flex: 0 0 45%;
+  max-width: 520px;
+}
+.tech-dock__img img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+}
+@media (max-width: 768px){
+  .tech-dock{ flex-direction: column; gap: 40px; }
+  .tech-dock__img{ flex: 0 0 auto; width: 100%; max-width: none; }
+}
+
+/* Section B — full-bleed image with right-aligned layer panels */
+.tech-layers{
+  position: relative;
+  background: var(--c-ink);
+  padding: 0;
+  overflow: hidden;
+}
+.tech-layers__bg{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.tech-layers__bg img{
+  width: 135%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  display: block;
+}
+.tech-layers__inner{
+  position: relative;
+  z-index: 1;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 80px 32px;
+  min-height: 600px;
+  display: grid;
+  align-items: stretch;
+}
+.tech-layers__panels{
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 460px;
+  justify-self: end;
+}
+.tech-layer-card{
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-left: 4px solid var(--c-teal);
+  padding: 18px 22px;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.tech-layer-card__label{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+  margin: 0 0 6px;
+}
+.tech-layer-card__text{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Inside-the-module grid */
+.module-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.module-card{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+}
+.module-card__num{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-mid);
+  margin-bottom: 14px;
+}
+.module-card h3{
+  font-size: 20px;
+  margin: 0 0 10px;
+  color: var(--c-ink);
+}
+.module-card p{
+  font-size: 16px;
+  color: var(--c-charcoal);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Spec table */
+.spec-wrap{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.spec-row{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  border-bottom: 1px solid var(--c-fog);
+}
+.spec-row:last-child{ border-bottom: 0; }
+.spec-row--head{ background: var(--c-fog); }
+.spec-cell{
+  padding: 16px 22px;
+  font-size: 16px;
+  color: var(--c-charcoal);
+}
+.spec-row--head .spec-cell{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-ink);
+}
+.spec-cell--label{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-charcoal);
+}
+.spec-cell--module{
+  background: rgba(44,190,192,0.05);
+  border-left: 4px solid var(--c-teal);
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--c-ink);
+}
+.spec-row--head .spec-cell--module{ background: rgba(44,190,192,0.12); border-left: 4px solid var(--c-teal); }
+
+.spec-foot{
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--c-mid);
+}
+
+/* Roadmap timeline */
+.roadmap{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.roadmap-card{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 32px 26px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.roadmap-card__chip{
+  /* convert chip into eyebrow style */
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-mid);
+  background: transparent;
+  padding: 0;
+  margin-bottom: 14px;
+}
+.roadmap-card--current .roadmap-card__chip{
+  color: var(--c-teal);
+  background: transparent;
+}
+.roadmap-card__stat{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--c-teal);
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+}
+.roadmap-card__stat sub{
+  font-size: 28px;
+  vertical-align: baseline;
+  font-weight: 700;
+  position: relative;
+  bottom: 4px;
+  margin-left: 2px;
+}
+.roadmap-card--current{ border-color: var(--c-teal); border-width: 2px; }
+.roadmap-card h3{
+  font-size: 22px;
+  margin: 0 0 8px;
+  color: var(--c-ink);
+}
+.roadmap-card__range{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--c-teal);
+  margin: 0 0 14px;
+}
+.roadmap-card p{
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  margin: 0;
+}
+
+/* Sovereignty band */
+.sov-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.sov-grid h2{ color: #ffffff; font-size: 32px; margin: 0 0 18px; }
+.sov-grid p{ color: rgba(255,255,255,0.85); font-size: 17px; line-height: 1.6; margin: 0 0 16px; }
+.sov-list{ list-style: none; padding: 0; margin: 0; }
+.sov-list li{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sov-list li:last-child{ border-bottom: 0; }
+.sov-list__dot{
+  width: 10px; height: 10px; border-radius: 50%; background: var(--c-teal);
+  flex: 0 0 auto;
+}
+
+/* CTA closer */
+.cta-band{
+  background: var(--c-fog);
+  padding: 80px 32px;
+  text-align: center;
+}
+.cta-band__inner{ max-width: 720px; margin: 0 auto; }
+.cta-band h2{ font-size: 32px; margin: 0 0 16px; }
+.cta-band p{ font-size: 18px; color: var(--c-mid); margin: 0 0 32px; }
+.cta-band .btn{ padding: 16px 28px; }
+
+@media (max-width: 980px){
+  .tech-intro{ text-align: left; }
+  .module-grid{ grid-template-columns: 1fr; }
+  .roadmap{ grid-template-columns: 1fr; }
+  .sov-grid{ grid-template-columns: 1fr; gap: 32px; }
+  /* On narrow screens hide the background image and fall back to legible light cards */
+  .tech-layers{ background: var(--c-fog); }
+  .tech-layers__bg{ display: none; }
+  .tech-layers__inner{ min-height: 0; padding: 56px 24px; }
+  .tech-layers__panels{ max-width: 100%; }
+  .tech-layer-card{
+    background: var(--c-white);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .tech-layer-card__text{ color: var(--c-ink); }
+}
+@media (max-width: 768px){
+  .tech-intro__lead{ font-size: 24px; }
+  .spec-row{ grid-template-columns: 1fr; }
+  .spec-row--head{ display: none; }
+  .spec-cell--label{ background: var(--c-fog); padding: 10px 20px; }
+  .spec-cell--module::before{ content: "Dev Kit: "; color: var(--c-teal); font-weight: 700; }
+  .spec-cell:nth-child(3)::before{ content: "Platform range: "; color: var(--c-mid); font-weight: 700; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="ticker" aria-label="Announcements">
+    <div class="ticker__inner" id="ticker">
+      <span class="ticker__flag" aria-hidden="true">🇦🇺</span>
+      <div class="ticker__item is-active">Designed and built in Australia</div>
+      <div class="ticker__item">Sovereign supply chain. No China-sourced components.</div>
+      <div class="ticker__item">Sovereign capability for AUKUS partners</div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__logo" aria-label="NOA home">
+        <img src="assets/logo.svg" alt="NOA" />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="tech.html" aria-current="page">Technology</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Request a Dev Kit</a>
+      </nav>
+      <div class="site-header__social">
+        <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" aria-label="NOA on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero page-hero--tech" aria-labelledby="tech-hero-h">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">Technology</span>
+    <h1 id="tech-hero-h">Engineered to ship<br>inside your platform.</h1>
+    <p class="page-hero__sub">Resonant inductive coupling, programmable from 1 W to 500 W, sealed by default. The module integrates into your platform — your team tunes it through a USB-C web configurator and ships.</p>
+  </div>
+</section>
+
+<!-- ============ SECTION A — INTRO COPY ============ -->
+<section class="section">
+  <div class="section__inner">
+    <div class="tech-intro">
+      <p class="tech-intro__lead">NOA treats power exactly like data — invisible, continuous.</p>
+      <p>Conventional charging is a mechanical problem dressed up as an electrical one. Pogo pins fatigue. Connectors corrode. Manual swaps cap fleet size at the human-tech ratio. Every contact is a maintenance event waiting to happen.</p>
+      <p>NOA replaces the contact entirely. A receiver coil pulls power across a 5–20&nbsp;mm air gap from a transmitter coil — through plastic, glass, paint, even shallow water. The enclosure stays sealed for the life of the platform, and charging starts in under two seconds when the device lands on the pad.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION B — FOUR-LAYER ARCHITECTURE ============ -->
+<section class="section tech-layers" aria-labelledby="tech-layers-h">
+  <div class="tech-layers__bg" aria-hidden="true">
+    <img src="assets/4%20Layer%20system.webp" alt="" loading="lazy" />
+  </div>
+  <div class="tech-layers__inner">
+    <h2 id="tech-layers-h" class="visually-hidden" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Four-layer architecture</h2>
+    <div class="tech-layers__panels" aria-label="Architecture layers">
+      <div class="tech-layer-card">
+        <p class="tech-layer-card__label">Layer 1</p>
+        <p class="tech-layer-card__text">Scalable power transfer — 1&nbsp;W to 500&nbsp;W on a single architecture.</p>
+      </div>
+      <div class="tech-layer-card">
+        <p class="tech-layer-card__label">Layer 2</p>
+        <p class="tech-layer-card__text">Smart BMS integration — 1-cell to 9-cell battery packs.</p>
+      </div>
+      <div class="tech-layer-card">
+        <p class="tech-layer-card__label">Layer 3</p>
+        <p class="tech-layer-card__text">Adaptive intelligence — dynamic power, foreign-object detection.</p>
+      </div>
+      <div class="tech-layer-card">
+        <p class="tech-layer-card__label">Layer 4</p>
+        <p class="tech-layer-card__text">Full control + telemetry — real-time visibility into every charge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ YOU DESIGN THE DOCK ============ -->
+<section class="section" id="integration-philosophy" aria-labelledby="dock-h">
+  <div class="section__inner">
+    <div class="tech-dock">
+      <div class="tech-intro tech-intro--left">
+        <p class="tech-intro__lead">You design the dock. We ship the platform.</p>
+        <p>NOA gives you the wireless power technology — transmitter electronics on the base-station side, receiver electronics on the platform side. The enclosure, the mechanical dock, and the IP rating belong to you. That's deliberate.</p>
+        <p>You know your platform better than we ever will — where the receiver sits to keep the airframe balanced for autonomous landing, what the dock has to look like to stay proprietary to your fleet, what certifications your jurisdiction demands. A pre-baked enclosure from us would only get in the way.</p>
+        <p>Tightly integrated systems beat retrofits every time. The telemetry is tighter, the mechanical fit is cleaner, the certification path is shorter. We hand you the picks and shovels — you build the platform around them.</p>
+      </div>
+      <div class="tech-dock__img">
+        <img src="assets/cta-image.webp" alt="" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIDE THE MODULE ============ -->
+<section class="section section--alt" aria-labelledby="module-h">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="module-h">Inside the Dev Kit</h2>
+      <p>What we seed to engineering teams qualifying NOA on their own platform.</p>
+    </div>
+
+    <div class="module-grid">
+      <article class="module-card">
+        <span class="module-card__num">01 · Hardware</span>
+        <h3>Transmitter and receiver</h3>
+        <p>Matched 50&nbsp;W TX and RX modules — dimensions <strong>TBC</strong>. Thin enough to integrate inside drone airframes, robot bellies, and wearables that competing wireless systems can't fit.</p>
+      </article>
+      <article class="module-card">
+        <span class="module-card__num">02 · Coils</span>
+        <h3>Interchangeable antennas</h3>
+        <p>Coil set <strong>TBC</strong>. Match coil diameter to your platform's air gap, alignment tolerance and form factor without redesigning the electronics.</p>
+      </article>
+      <article class="module-card">
+        <span class="module-card__num">03 · Tuning</span>
+        <h3>Web-based NOA Configurator</h3>
+        <p>Plug USB-C into the module, open the configurator, tune voltage, current, duty cycle, frequency. Switch between battery-charge, constant-voltage and constant-current regulator modes from the browser.</p>
+      </article>
+      <article class="module-card">
+        <span class="module-card__num">04 · Bypass</span>
+        <h3>Solder-jumper bypass mode</h3>
+        <p>For engineers who want raw rectified output to feed their own regulator, a single solder jumper drops NOA's onboard regulation out of the path.</p>
+      </article>
+      <article class="module-card">
+        <span class="module-card__num">05 · Safety</span>
+        <h3>Built-in protection</h3>
+        <p>Foreign-object detection (FOD), over-current protection (OCP) and over-voltage protection (OVP) cut power in under 2&nbsp;ms. Standby draw stays below 0.5&nbsp;W. No bolted-on safety MCU required.</p>
+      </article>
+      <article class="module-card">
+        <span class="module-card__num">06 · Customisation</span>
+        <h3>Hardware and firmware</h3>
+        <p>OEMs that move past evaluation can customise both the hardware and the firmware. Design-in support is paired one-to-one with the integration team — not a downloadable SDK.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPECIFICATIONS ============ -->
+<section class="section" aria-labelledby="specs-h">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="specs-h">Specifications</h2>
+      <p>The Dev Kit is the lower bound of the platform. The architecture scales to 500&nbsp;W on the same protections, the same configurator, the same workflow.</p>
+    </div>
+
+    <div class="spec-wrap" role="table" aria-label="NOA specifications">
+      <div class="spec-row spec-row--head" role="row">
+        <div class="spec-cell spec-cell--label" role="columnheader">Parameter</div>
+        <div class="spec-cell spec-cell--module" role="columnheader">Dev Kit</div>
+        <div class="spec-cell" role="columnheader">Platform range</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Power output</div>
+        <div class="spec-cell spec-cell--module">up to 50 W programmable</div>
+        <div class="spec-cell">1 W – 500 W</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Energy efficiency</div>
+        <div class="spec-cell spec-cell--module">up to 92%</div>
+        <div class="spec-cell">up to 93%</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Operating temperature</div>
+        <div class="spec-cell spec-cell--module">28–29 °C at full load</div>
+        <div class="spec-cell">28–29 °C at full load</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Air gap</div>
+        <div class="spec-cell spec-cell--module">5–20 mm (coil-dependent)</div>
+        <div class="spec-cell">up to 20 mm</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Module dimensions</div>
+        <div class="spec-cell spec-cell--module">TBC</div>
+        <div class="spec-cell">scales with power class</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Input voltage</div>
+        <div class="spec-cell spec-cell--module">12–24 V DC</div>
+        <div class="spec-cell">configurable</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Input current</div>
+        <div class="spec-cell spec-cell--module">up to 4.8 A</div>
+        <div class="spec-cell">scales with power class</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Output</div>
+        <div class="spec-cell spec-cell--module">up to 24 V / 4 A</div>
+        <div class="spec-cell">configurable</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Standby draw</div>
+        <div class="spec-cell spec-cell--module">&lt; 0.5 W</div>
+        <div class="spec-cell">&lt; 0.5 W</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Protections</div>
+        <div class="spec-cell spec-cell--module">FOD · OCP · OVP</div>
+        <div class="spec-cell">FOD · OCP · OVP</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Tuning interface</div>
+        <div class="spec-cell spec-cell--module">USB-C → NOA Configurator (web)</div>
+        <div class="spec-cell">platform-tuned at integration</div>
+      </div>
+      <div class="spec-row" role="row">
+        <div class="spec-cell spec-cell--label">Regulator modes</div>
+        <div class="spec-cell spec-cell--module">Battery charge · CV · CC</div>
+        <div class="spec-cell">application-tuned</div>
+      </div>
+    </div>
+
+    <p class="spec-foot">Certifications relevant to your jurisdiction (CE, FCC, MIL-STD, etc.) are confirmed during the integration conversation and matched to the deployment context.</p>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section class="section section--alt" id="roadmap" aria-labelledby="roadmap-h">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="roadmap-h">Power family — 1 W to 500 W on one architecture</h2>
+      <p>The Dev Kit is one node in a power family. Same protections, same configurator, same integration workflow at every scale.</p>
+    </div>
+
+    <div class="roadmap">
+      <article class="roadmap-card roadmap-card--current">
+        <span class="roadmap-card__chip">Dev Kit · Shipping now</span>
+        <div class="roadmap-card__stat">50<sub>W</sub></div>
+        <p>The lower bound of the platform — 1&nbsp;W to 50&nbsp;W on the same architecture every step up. Bench-tested, integrated and characterised by engineering teams qualifying NOA on their own platform.</p>
+      </article>
+      <article class="roadmap-card">
+        <span class="roadmap-card__chip">Mid-2026</span>
+        <div class="roadmap-card__stat">250<sub>W</sub></div>
+        <p>Backwards-compatible with 50&nbsp;W applications and forward-compatible with most industrial fleet hardware. Same architecture, broader power envelope.</p>
+      </article>
+      <article class="roadmap-card">
+        <span class="roadmap-card__chip">Platform ceiling</span>
+        <div class="roadmap-card__stat">500<sub>W</sub></div>
+        <p>Heavy platforms — large robotics, marine ROVs, ground vehicles. The architecture scales without redesigning the host integration.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOVEREIGNTY ============ -->
+<section class="section section--ink" id="sovereignty" aria-labelledby="sov-h">
+  <div class="section__inner">
+    <div class="sov-grid">
+      <div>
+        <h2 id="sov-h">Sovereign by design.</h2>
+        <p>NOA is designed in Australia and engineered out of Cicada Innovations — Australia's deeptech incubator at Eveleigh, Sydney. The Hornsby Works manufacturing facility is secured and is being fitted out for industrial-scale production under the current raise. The supply chain is free of China-sourced critical components, by deliberate decision.</p>
+        <p>The capability is designed to fit AUKUS Pillar 2 sourcing requirements from day one — no retrofitted compliance documentation.</p>
+      </div>
+      <ul class="sov-list" aria-label="Sovereignty markers">
+        <li><span class="sov-list__dot" aria-hidden="true"></span>Australian-designed wireless power IP</li>
+        <li><span class="sov-list__dot" aria-hidden="true"></span>Engineered at Cicada Innovations, Eveleigh NSW</li>
+        <li><span class="sov-list__dot" aria-hidden="true"></span>Hornsby Works manufacturing — scaling under current raise</li>
+        <li><span class="sov-list__dot" aria-hidden="true"></span>No China-sourced critical components</li>
+        <li><span class="sov-list__dot" aria-hidden="true"></span>Designed for AUKUS Pillar 2 sourcing rules</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENGINEER FAQ ============ -->
+<section class="section" id="faq" aria-labelledby="faq-h">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="faq-h">The questions engineers ask first.</h2>
+      <p>Three questions surface on almost every integration call. The short answers are below — the <a href="faq.html#engineers" style="color: var(--c-teal); border-bottom: 1px solid rgba(44,190,192,0.4);">full engineering FAQ</a> goes deeper.</p>
+    </div>
+
+    <div class="module-grid">
+      <article class="module-card">
+        <span class="module-card__num">FAQ · 01</span>
+        <h3>Can I keep my pogo pins as a fallback?</h3>
+        <p>Yes — for retrofits. If the chassis is locked and you're adding wireless to an existing platform, NOA can sit alongside pogo pins as a redundancy path. New designs typically drop the pins entirely once integration is proven. The extra grams, the extra BOM line, and the failure mode you've now built in stop being worth it.</p>
+      </article>
+      <article class="module-card">
+        <span class="module-card__num">FAQ · 02</span>
+        <h3>How is this different from other wireless?</h3>
+        <p>Most wireless power vendors target either extreme power (EV-class kilowatts) or extreme distance (over-the-air). Both impose cost and integration burdens that don't suit autonomous robotics or drones. NOA is engineered for the platforms running the field. Tight spaces. Weight budgets that move grams. Mixed environments where one design ships into rain and one into dust. Fanless thermal envelope. Certification owned by your team.</p>
+      </article>
+      <article class="module-card">
+        <span class="module-card__num">FAQ · 03</span>
+        <h3>What about heat?</h3>
+        <p>Competing wireless solutions typically rely on fans or oversized heat sinks to manage thermal load. NOA runs at 28&nbsp;°C under continuous operation — fanless, dense-packable, low acoustic and thermal signature. That matters for sensor-laden platforms, covert deployments, and any enclosure that has to stay sealed.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA CLOSER ============ -->
+<section class="closer" id="close" aria-labelledby="closer-h">
+  <div class="closer__inner">
+    <h2 id="closer-h" class="closer__head">Most wireless power modules are built to test.<br>NOA is built to <span class="accent">ship inside your platform</span>.</h2>
+    <div class="closer__pillars">
+      <div class="closer__pillar">
+        <span class="closer__pillar-label">Configurable</span>
+        <span class="closer__pillar-text">1 W to 500 W on a single architecture</span>
+      </div>
+      <div class="closer__divider" aria-hidden="true"></div>
+      <div class="closer__pillar">
+        <span class="closer__pillar-label">Integrable</span>
+        <span class="closer__pillar-text">USB-C tuning — no firmware expertise required</span>
+      </div>
+    </div>
+    <a href="contact.html" class="btn">Request a Dev Kit</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <img src="assets/NOA-Logo-White.svg" alt="NOA" />
+      <p>Australian-engineered contactless power for autonomous systems. Sovereign supply chain. Built for the field.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="tech.html">Technology</a></li>
+        <li><a href="contact.html">Dev Kit</a></li>
+        <li><a href="tech.html#roadmap">250&nbsp;W roadmap</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#sovereignty">Sovereignty</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="mailto:enquiries@noathebrand.com">enquiries@noathebrand.com</a></li>
+        <li><a href="mailto:dpaull@noathebrand.com">dpaull@noathebrand.com</a> · engineering briefs</li>
+        <li>Sydney, Australia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© 2026 NOA. All rights reserved.</span>
+    <span>Wireless power. Zero contact.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var items = document.querySelectorAll('.ticker__item');
+  if(items.length < 2) return;
+  var i = 0;
+  var paused = false;
+  var rail = document.getElementById('ticker');
+  if(rail){
+    rail.addEventListener('mouseenter', function(){ paused = true; });
+    rail.addEventListener('mouseleave', function(){ paused = false; });
+  }
+  setInterval(function(){
+    if(paused) return;
+    items[i].classList.remove('is-active');
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-active');
+  }, 5000);
+})();
+</script>
+
+</body>
+</html>

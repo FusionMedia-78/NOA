@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — NOA</title>
+<meta name="description" content="NOA is an Australian industrial-technology company building sovereign wireless power infrastructure for autonomous platforms. Designed, engineered and manufactured in Australia." />
+
+<meta property="og:title" content="About NOA" />
+<meta property="og:description" content="Australian-engineered wireless power infrastructure for autonomous platforms. Sovereign supply chain. A decade of portable-power work, productised." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css" />
+
+<style>
+/* ============ about.html — page-specific ============ */
+
+/* Story / two-column */
+.story{
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.story__lead{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.25;
+  color: var(--c-ink);
+  margin: 0 0 22px;
+  letter-spacing: -0.01em;
+}
+.story p{
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--c-charcoal);
+  margin: 0 0 18px;
+}
+.story-side{
+  background: var(--c-fog);
+  border-radius: 12px;
+  padding: 32px 28px;
+}
+.story-side h3{
+  font-size: 18px;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-ink);
+}
+.story-side ul{ list-style: none; padding: 0; margin: 0; }
+.story-side li{
+  padding: 14px 0;
+  border-bottom: 1px solid var(--c-iron);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--c-charcoal);
+}
+.story-side li:last-child{ border-bottom: 0; }
+.story-side strong{
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--c-ink);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+/* Founders */
+.founders{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.founder-card{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 32px 26px;
+}
+.founder-card__role{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-mid);
+  margin: 0 0 14px;
+}
+.founder-card h3{
+  font-size: 26px;
+  margin: 0 0 16px;
+  color: var(--c-ink);
+}
+.founder-card p{
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  margin: 0 0 12px;
+}
+
+/* Pull quote */
+.quote{
+  background: var(--c-ink);
+  color: #ffffff;
+  padding: 96px 32px;
+  text-align: center;
+}
+.quote__inner{ max-width: 880px; margin: 0 auto; }
+.quote blockquote{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 28px;
+}
+.quote blockquote::before{ content: "\201C"; }
+.quote blockquote::after{ content: "\201D"; }
+.quote cite{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-teal-soft);
+  font-style: normal;
+}
+
+/* Sovereignty grid (re-styled for white bg here) */
+.sov-cols{
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.sov-cols p{
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--c-charcoal);
+  margin: 0 0 18px;
+}
+.sov-pillars{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.sov-pillar{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-left: 4px solid var(--c-teal);
+  padding: 18px 22px;
+  border-radius: 0 8px 8px 0;
+}
+.sov-pillar strong{
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+  margin-bottom: 6px;
+}
+.sov-pillar span{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--c-ink);
+}
+
+/* Case study */
+.case{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.case h2{ font-size: 32px; margin: 0 0 16px; }
+.case__intro{
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--c-charcoal);
+  margin: 0 0 24px;
+}
+.case-stats{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.case-stat{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 32px 26px;
+}
+.case-stat__value{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--c-teal);
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+}
+.case-stat__label{
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--c-charcoal);
+  margin: 0;
+}
+
+/* CTA closer */
+.cta-band{
+  background: var(--c-fog);
+  padding: 80px 32px;
+  text-align: center;
+}
+.cta-band__inner{ max-width: 720px; margin: 0 auto; }
+.cta-band h2{ font-size: 32px; margin: 0 0 16px; }
+.cta-band p{ font-size: 18px; color: var(--c-mid); margin: 0 0 32px; }
+.cta-band .btn{ padding: 16px 28px; }
+
+@media (max-width: 980px){
+  .story{ grid-template-columns: 1fr; gap: 32px; }
+  .founders{ grid-template-columns: 1fr; }
+  .sov-cols{ grid-template-columns: 1fr; gap: 32px; }
+  .case{ grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 768px){
+  .story__lead{ font-size: 22px; }
+  .quote{ padding: 64px 20px; }
+  .quote blockquote{ font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="ticker" aria-label="Announcements">
+    <div class="ticker__inner" id="ticker">
+      <span class="ticker__flag" aria-hidden="true">🇦🇺</span>
+      <div class="ticker__item is-active">Designed and built in Australia</div>
+      <div class="ticker__item">Sovereign supply chain. No China-sourced components.</div>
+      <div class="ticker__item">Sovereign capability for AUKUS partners</div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__logo" aria-label="NOA home">
+        <img src="assets/logo.svg" alt="NOA" />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="tech.html">Technology</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Request a Dev Kit</a>
+      </nav>
+      <div class="site-header__social">
+        <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" aria-label="NOA on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero page-hero--about">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">About NOA</span>
+    <h1>Built in Australia, by design.</h1>
+    <p class="page-hero__sub">An industrial-technology company building sovereign wireless power infrastructure for autonomous platforms — designed, engineered and manufactured in Australia.</p>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="section" aria-labelledby="story-h">
+  <div class="section__inner">
+    <div class="story">
+      <div>
+        <h2 id="story-h" class="story__lead">NOA exists because charging is the bottleneck no one has solved.</h2>
+        <p>Every connector is a failure point. Every charging cycle is a 20–45 minute mission interruption. Every manual battery swap is a labour ceiling that caps fleet size at the human-tech ratio. If your fleet still needs a human to plug it in, your fleet isn't actually autonomous.</p>
+        <p>NOA's wireless power infrastructure removes the contact entirely — power crosses an air gap, the enclosure stays sealed, and charging starts in under two seconds when the platform lands on the pad. Power becomes infrastructure, not a chore. We treat power exactly the way data is treated: invisible, continuous.</p>
+        <p>That premise — power-as-infrastructure — is why we engineer the technology as a 1&nbsp;W to 500&nbsp;W platform rather than a single charger. The same architecture serves a wearable sensor and a marine ROV.</p>
+      </div>
+      <aside class="story-side" aria-label="Company at a glance">
+        <h3>At a glance</h3>
+        <ul>
+          <li><strong>Headquarters</strong>Sydney, Australia</li>
+          <li><strong>Engineered at</strong>Cicada Innovations, Eveleigh NSW</li>
+          <li><strong>Manufacturing</strong>Hornsby Works, NSW (factory secured, scaling under current raise)</li>
+          <li><strong>Power range</strong>1&nbsp;W – 500&nbsp;W on one architecture</li>
+          <li><strong>Sectors</strong>Logistics, defence, mining, agriculture, marine, industrial automation</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORIGINS ============ -->
+<section class="section section--alt" aria-labelledby="origins-h">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="origins-h">A decade of work, before the company.</h2>
+      <p>NOA is the production answer to a research problem that's been worked on since 2014.</p>
+    </div>
+
+    <div class="story">
+      <div>
+        <p>The technology lineage runs back to portable-power R&amp;D first demonstrated publicly at TEDxMacquarie in 2014 — a decade before the first NOA wireless Dev Kit shipped to engineering teams. The early work asked a small question: why is the experience of charging so much worse than the experience of using power? The answer, eventually, turned out to be the connector itself.</p>
+        <p>What followed was a long iteration on form factor, on power class, on use case. The shift from consumer portable to industrial wireless came when robotics and drone fleets started losing more uptime to charging than to mission. Charging stopped being a usability problem and became a fleet-economics problem.</p>
+        <p>NOA was set up to ship that as a sovereign Australian capability — engineered out of Cicada Innovations, manufacturing scaling at Hornsby Works in NSW, with a supply chain free of China-sourced critical components from the first board. Selected for Startmate's Summer '24 cohort. The stated position: be the picks-and-shovels infrastructure underneath every autonomous platform running the field — across commercial fleets, industrial OEMs, and defence.</p>
+      </div>
+      <aside class="story-side" aria-label="Milestones">
+        <h3>Milestones</h3>
+        <ul>
+          <li><strong>2014</strong>Technology lineage first demonstrated publicly at TEDxMacquarie under the theme "Breaking New Ground."</li>
+          <li><strong>2024</strong>Selected for Startmate's Summer '24 cohort — Australia's leading deeptech accelerator.</li>
+          <li><strong>2024+</strong>Wireless Dev Kits shipping to qualifying engineering teams; engineering operations centralised at Cicada Innovations.</li>
+          <li><strong>2025–26</strong>Hornsby Works manufacturing facility secured and being fitted out for industrial-scale production under the current raise.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section class="quote" aria-label="Company positioning">
+  <div class="quote__inner">
+    <blockquote>The picks and shovels of autonomous technologies.</blockquote>
+    <cite>— NOA's position in the stack</cite>
+  </div>
+</section>
+
+<!-- ============ SOVEREIGNTY ============ -->
+<section class="section" id="sovereignty" aria-labelledby="sov-h">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="sov-h">The sovereignty isn't retrofit.</h2>
+      <p>The supply chain decisions are deliberate. Australian capability, AUKUS-aligned, ready for procurement contexts where origin matters.</p>
+    </div>
+
+    <div class="sov-cols">
+      <div>
+        <p>Wireless power is moving into platforms that can't tolerate supply-chain ambiguity — defence systems, coalition assets, critical infrastructure, sovereign industrial fleets. NOA was set up Australian, with a non-China supply chain, from the first board.</p>
+        <p>The IP is Australian. The engineering happens at Cicada Innovations in Eveleigh — Australia's deeptech incubator. The Hornsby Works manufacturing facility is secured and is being fitted out for industrial-scale production under the current raise. The supply chain for critical components avoids China-sourced parts by deliberate decision.</p>
+        <p>The capability is designed to fit AUKUS Pillar 2 sourcing requirements from day one — no retrofitted compliance documentation. For industrial OEMs reshoring after the 2020 supply-chain reset, it's a de-risked Australian source for a capability that's already being procurement-screened.</p>
+      </div>
+      <div class="sov-pillars" aria-label="Sovereignty pillars">
+        <div class="sov-pillar"><strong>Designed</strong><span>Australian wireless power IP</span></div>
+        <div class="sov-pillar"><strong>Engineered</strong><span>Cicada Innovations, Eveleigh NSW</span></div>
+        <div class="sov-pillar"><strong>Manufacturing</strong><span>Hornsby Works, NSW (scaling under current raise)</span></div>
+        <div class="sov-pillar"><strong>Sourced</strong><span>No China-sourced critical components</span></div>
+        <div class="sov-pillar"><strong>Designed for</strong><span>AUKUS Pillar 2 sourcing rules</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE STUDY ============ -->
+<section class="section section--alt" aria-labelledby="case-h">
+  <div class="section__inner">
+    <div class="case">
+      <div>
+        <span class="eyebrow">Reference deployment</span>
+        <h2 id="case-h">A drone-as-a-service customer — autonomous bird deterrence at scale.</h2>
+        <p class="case__intro">An Australian drone-as-a-service operator running AgTech fleets for bird deterrence across vineyards and berry farms. The original plan called for 18 drones to cover a 20-hectare plot under manual battery-swap operations. With NOA wireless power integrated into the dock, the same plot is now covered by 6 drones charging autonomously between sorties — a 66% fleet reduction, and zero operators on the ground rotating batteries. From the deployment data.</p>
+      </div>
+      <div class="case-stats">
+        <div class="case-stat">
+          <div class="case-stat__value">66%</div>
+          <p class="case-stat__label">Fleet reduction — 18 drones to 6, same coverage</p>
+        </div>
+        <div class="case-stat">
+          <div class="case-stat__value">~$214K</div>
+          <p class="case-stat__label">Equipment cost savings on a single deployment</p>
+        </div>
+        <div class="case-stat">
+          <div class="case-stat__value">29.7 min</div>
+          <p class="case-stat__label">Full recharge — no plug, no operator</p>
+        </div>
+        <div class="case-stat">
+          <div class="case-stat__value">&lt; 2 s</div>
+          <p class="case-stat__label">Charge initiation when the drone lands on the pad</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA CLOSER ============ -->
+<section class="closer" id="close" aria-labelledby="closer-h">
+  <div class="closer__inner">
+    <h2 id="closer-h" class="closer__head">Most defence hardware traces back to a component you didn't choose.<br>NOA is built here because <span class="accent">sovereign supply chains aren't negotiable</span>.</h2>
+    <div class="closer__pillars">
+      <div class="closer__pillar">
+        <span class="closer__pillar-label">Sovereign</span>
+        <span class="closer__pillar-text">No China-sourced components, by design</span>
+      </div>
+      <div class="closer__divider" aria-hidden="true"></div>
+      <div class="closer__pillar">
+        <span class="closer__pillar-label">Accountable</span>
+        <span class="closer__pillar-text">A team you can call, not a datasheet you can email</span>
+      </div>
+    </div>
+    <a href="contact.html" class="btn">Request a Dev Kit</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <img src="assets/NOA-Logo-White.svg" alt="NOA" />
+      <p>Australian-engineered contactless power for autonomous systems. Sovereign supply chain. Built for the field.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="tech.html">Technology</a></li>
+        <li><a href="contact.html">Dev Kit</a></li>
+        <li><a href="tech.html#roadmap">250&nbsp;W roadmap</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#sovereignty">Sovereignty</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="mailto:enquiries@noathebrand.com">enquiries@noathebrand.com</a></li>
+        <li><a href="mailto:dpaull@noathebrand.com">dpaull@noathebrand.com</a> · engineering briefs</li>
+        <li>Sydney, Australia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© 2026 NOA. All rights reserved.</span>
+    <span>Wireless power. Zero contact.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var items = document.querySelectorAll('.ticker__item');
+  if(items.length < 2) return;
+  var i = 0;
+  var paused = false;
+  var rail = document.getElementById('ticker');
+  if(rail){
+    rail.addEventListener('mouseenter', function(){ paused = true; });
+    rail.addEventListener('mouseleave', function(){ paused = false; });
+  }
+  setInterval(function(){
+    if(paused) return;
+    items[i].classList.remove('is-active');
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-active');
+  }, 5000);
+})();
+</script>
+
+</body>
+</html>

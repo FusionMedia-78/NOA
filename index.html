@@ -1,0 +1,1487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NOA — Wireless Power. Zero Contact.</title>
+<meta name="description" content="Australian-engineered contactless wireless power for autonomous platforms. 1–500W programmable, up to 93% efficiency, 28°C operating temperature, 5–20mm air gap. Sovereign supply chain." />
+
+<!-- Open Graph / LinkedIn / Twitter share previews -->
+<meta property="og:title" content="NOA — Wireless Power. Zero Contact." />
+<meta property="og:description" content="Australian-engineered contactless wireless power for autonomous platforms. Sovereign supply chain. Built for the field." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/hero-bg.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="NOA — Wireless Power. Zero Contact." />
+<meta name="twitter:description" content="Australian-engineered contactless wireless power for autonomous platforms. Sovereign supply chain. Built for the field." />
+<meta name="twitter:image" content="assets/hero-bg.png" />
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- self-hosted brand font ---------- */
+@font-face{
+  font-family: "Metropolis";
+  src: url("assets/fonts/Metropolis-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- design tokens (from Figma style guide node 10:150) ---------- */
+:root{
+  --c-ink:        #171a1b;   /* near-black */
+  --c-charcoal:   #33393b;   /* dark grey */
+  --c-mid:        #5c5e62;   /* mid grey */
+  --c-iron:       #d0d1d2;   /* divider grey */
+  --c-mist:       #d4dddd;   /* lighter grey */
+  --c-fog:        #f1f2f2;   /* section grey */
+  --c-paper:      #fcfbfb;   /* card grey */
+  --c-white:      #ffffff;
+  --c-teal:       #2cbec0;   /* primary teal */
+  --c-teal-soft:  #69c9ca;   /* soft teal */
+
+  --font-head: "Metropolis", system-ui, sans-serif;
+  --font-body: "Libre Franklin", system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  --container: 1280px;
+}
+
+/* ---------- reset ---------- */
+*,*::before,*::after{ box-sizing: border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--c-charcoal);
+  background: var(--c-white);
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  line-height: 1.6;
+}
+img{ display:block; max-width:100%; height:auto; }
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; }
+
+h1,h2,h3,h4{
+  font-family: var(--font-head);
+  color: var(--c-ink);
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+h1{ font-size: 38px; line-height: 1.2; }
+h2{ font-size: 32px; line-height: 1.25; }
+h3{ font-size: 24px; line-height: 1.32; }
+h4{ font-size: 16px; line-height: 1.32; }
+
+.eyebrow{
+  font-family: var(--font-head);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 16px;
+  color: var(--c-charcoal);
+}
+
+/* ---------- top bar (ticker + nav) ---------- */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* announcement ticker */
+.ticker{
+  background: var(--c-ink);
+  color: #ffffff;
+}
+.ticker__inner{
+  position: relative;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 42px;
+}
+.ticker__item{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+  white-space: nowrap;
+  text-align: center;
+  padding: 0 12px;
+}
+.ticker__item.is-active{ opacity: 1; }
+.ticker__flag{
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 38px;
+  line-height: 1;
+  z-index: 2;
+  pointer-events: none;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+/* ---------- header ---------- */
+.site-header{
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--c-fog);
+}
+.site-header__inner{
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 14px 32px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 56px;
+}
+.site-header__logo{ justify-self: start; display: inline-flex; align-items: center; }
+.site-header__logo img{ height: 26px; width: auto; display: block; }
+.site-nav{
+  justify-self: center;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+.site-nav a{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--c-charcoal);
+}
+.site-nav a:hover{ color: var(--c-teal); }
+.site-header__social{
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.site-header__social a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--c-charcoal);
+  transition: color .15s ease;
+}
+.site-header__social a:hover{ color: var(--c-teal); }
+.site-header__social svg{ width: 20px; height: 20px; display: block; }
+
+/* ---------- hero ---------- */
+.hero{
+  position: relative;
+  min-height: 675px;
+  background: #0d0e10;
+  color: #f8f8f8;
+  overflow: hidden;
+}
+.hero__video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  z-index: 0;
+}
+.btn{
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--c-teal);
+  color: var(--c-ink);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  max-height: 56px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background .15s ease, transform .15s ease;
+}
+.btn:hover{ background: var(--c-teal-soft); }
+.btn:active{ transform: translateY(1px); }
+.btn--inline{ width: auto; padding: 10px 18px; font-size: 16px; }
+
+/* ---------- stats bar ---------- */
+.stats{
+  background: var(--c-white);
+  padding: 52px 32px;
+}
+.stats__inner{
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+.stat{ text-align: center; min-width: 140px; }
+.stat__value{
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--c-ink);
+  font-size: 60px;
+  line-height: 1;
+}
+.stat__value sub{
+  font-size: 28px;
+  vertical-align: baseline;
+  font-weight: 700;
+  position: relative;
+  bottom: 6px;
+}
+.stat__label{
+  margin-top: 16px;
+  color: var(--c-mid);
+  font-size: 16px;
+  font-family: var(--font-body);
+}
+.stat__sub{
+  margin-top: 6px;
+  color: var(--c-mid);
+  font-size: 13px;
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.45;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.85;
+}
+.stats__divider{
+  width: 1px;
+  background: var(--c-iron);
+  align-self: stretch;
+}
+
+/* ---------- feature cards (Contactless / Patented) ---------- */
+.section-band{
+  background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(102,102,102,0) 100%), var(--c-fog);
+  padding: 52px 32px;
+}
+.feature-grid{
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.feature-card{
+  background: var(--c-paper);
+  border-radius: var(--radius-md);
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  min-height: 220px;
+  overflow: hidden;
+}
+.feature-card__body{
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.feature-card__title{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--c-ink);
+  margin-bottom: 6px;
+}
+.feature-card__desc{
+  color: var(--c-mid);
+  font-size: 16px;
+  margin-bottom: 18px;
+}
+.feature-card__media{
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.feature-card__media--charging{ background-image: url("assets/card-charging.webp"); }
+.feature-card__media--patented{ background-image: url("assets/card-patented.webp"); }
+
+/* ---------- footer ---------- */
+.site-footer{
+  background: var(--c-ink);
+  color: #c8c9ca;
+  padding: 48px 32px 28px;
+}
+.site-footer__inner{
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+}
+.site-footer h4{
+  color: var(--c-white);
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.site-footer ul{ list-style: none; padding: 0; margin: 0; }
+.site-footer li{ margin-bottom: 8px; font-size: 16px; }
+.site-footer a:hover{ color: var(--c-teal-soft); }
+.site-footer__brand img{ height: 28px; margin-bottom: 12px; }
+.site-footer__brand p{ font-size: 16px; color: #9b9d9f; max-width: 320px; }
+.site-footer__bottom{
+  max-width: var(--container);
+  margin: 32px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid #2a2d2f;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #7c7e80;
+}
+
+/* ============================================================
+   EXTENDED SECTIONS (1–6)
+   ============================================================ */
+
+.section{ padding: 96px 32px; }
+.section--alt{ background: var(--c-fog); }
+.section__inner{ max-width: var(--container); margin: 0 auto; }
+.section__head{ text-align: center; margin-bottom: 64px; }
+.section__head h2{ font-size: 32px; margin-bottom: 12px; }
+.section__head p{
+  font-size: 16px;
+  color: var(--c-mid);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* SECTION 1 — bottleneck */
+.bottleneck-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.bottleneck-card{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 32px 26px;
+}
+.bottleneck-card .eyebrow{
+  display: block;
+  margin-bottom: 14px;
+  color: var(--c-mid);
+}
+.bottleneck-card p{
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  margin: 0;
+}
+.barchart{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.barchart__title{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--c-ink);
+  margin: 0 0 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.barchart__row{
+  display: grid;
+  grid-template-columns: 190px 1fr 64px;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.barchart__label{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--c-charcoal);
+}
+.barchart__track{
+  height: 14px;
+  background: var(--c-fog);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.barchart__fill{
+  height: 100%;
+  background: var(--c-mid);
+  border-radius: 99px;
+}
+.barchart__fill--brand{ background: var(--c-teal); }
+.barchart__value{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--c-ink);
+  text-align: right;
+}
+.barchart__caption{
+  margin: 16px 0 0;
+  font-size: 16px;
+  color: var(--c-mid);
+}
+
+/* SECTION 2 — industries carousel */
+.carousel{ position: relative; }
+.carousel__track{
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 8px 0 24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.carousel__track::-webkit-scrollbar{ display: none; }
+.carousel__card{
+  flex: 0 0 536px;
+  scroll-snap-align: start;
+  background: var(--c-white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+}
+.carousel__card-image{
+  aspect-ratio: 16 / 9;
+  background: var(--c-fog);
+  background-size: cover;
+  background-position: center;
+}
+.carousel__card-body{
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.carousel__card-headline{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--c-ink);
+  margin: 0;
+}
+.carousel__card-body p{
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  margin: 0;
+}
+.carousel__nav{
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.carousel__btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--c-iron);
+  background: var(--c-white);
+  color: var(--c-ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .15s, color .15s, opacity .15s;
+}
+.carousel__btn:hover{ border-color: var(--c-teal); color: var(--c-teal); }
+.carousel__btn:focus-visible{ outline: 2px solid var(--c-teal); outline-offset: 2px; }
+.carousel__btn:disabled{ opacity: 0.35; cursor: not-allowed; }
+.carousel__btn svg{ width: 16px; height: 16px; }
+
+/* SECTION 3 — Core USP grid */
+.usp-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.usp-tile{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+}
+.usp-tile .eyebrow{
+  display: block;
+  margin-bottom: 14px;
+  color: var(--c-mid);
+}
+.usp-tile__stat{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--c-teal);
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+}
+.usp-tile__stat sub{
+  font-size: 28px;
+  vertical-align: baseline;
+  font-weight: 700;
+  position: relative;
+  bottom: 4px;
+  margin-left: 2px;
+}
+.usp-tile__consequence{
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--c-charcoal);
+  margin: 0;
+}
+
+/* SECTION 4 — comparison */
+.compare{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.compare__row{
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr 1.4fr;
+  border-bottom: 1px solid var(--c-fog);
+}
+.compare__row:last-child{ border-bottom: 0; }
+.compare__row--head{ background: var(--c-fog); }
+.compare__cell{
+  padding: 18px 24px;
+  font-size: 16px;
+  color: var(--c-charcoal);
+  display: flex;
+  align-items: center;
+}
+.compare__row--head .compare__cell{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-ink);
+}
+.compare__cell--feature{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-charcoal);
+}
+.compare__cell--noa{
+  background: rgba(44,190,192,0.06);
+  border-left: 4px solid var(--c-teal);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--c-ink);
+}
+.compare__cell--pogo{ color: var(--c-mid); }
+.compare__indicator{
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.compare__cell--noa .compare__indicator{ background: var(--c-teal); }
+.compare__cell--pogo .compare__indicator{ background: var(--c-iron); }
+.compare-callout{
+  margin-top: 24px;
+  padding: 22px 26px;
+  border-left: 4px solid var(--c-teal);
+  background: var(--c-white);
+  border-radius: 0 8px 8px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  border-top: 1px solid var(--c-iron);
+  border-right: 1px solid var(--c-iron);
+  border-bottom: 1px solid var(--c-iron);
+}
+.compare-callout strong{
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--c-ink);
+  margin-right: 4px;
+}
+
+/* Qi cells — same visual treatment as pogo */
+.compare__cell--qi{ color: var(--c-mid); }
+.compare__cell--qi .compare__indicator{ background: var(--c-iron); }
+
+/* Battery-swap cells — same visual treatment as pogo */
+.compare__cell--swap{ color: var(--c-mid); }
+.compare__cell--swap .compare__indicator{ background: var(--c-iron); }
+
+/* compare-tabs — tabbed switching between comparison panels */
+.compare-tabs__list{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.compare-tabs__btn{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  padding: 4px 0 12px;
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  color: var(--c-mid);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.compare-tabs__btn:hover{
+  color: var(--c-teal);
+}
+.compare-tabs__btn[aria-selected="true"]{
+  color: var(--c-ink);
+  border-bottom-color: var(--c-teal);
+}
+.compare-tabs__btn[aria-selected="true"]:hover{
+  color: var(--c-ink);
+}
+.compare-tabs__btn:focus-visible{
+  outline: 2px solid var(--c-teal);
+  outline-offset: 4px;
+}
+.compare-tabs__panels{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.compare-tabs__panel{
+  grid-area: 1 / 1;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 200ms ease, visibility 0s linear 0s;
+}
+.compare-tabs__panel[hidden]{
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 200ms ease, visibility 0s linear 200ms;
+}
+@media (prefers-reduced-motion: reduce){
+  .compare-tabs__panel{ transition: none; }
+  .compare-tabs__panel[hidden]{ transition: none; }
+}
+
+/* SECTION 5 — path to integration */
+.path-flow{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.path-flow::before{
+  content: "";
+  position: absolute;
+  top: 32px;
+  left: calc(12.5% + 32px);
+  right: calc(12.5% + 32px);
+  height: 2px;
+  background: rgba(44,190,192,0.35);
+  z-index: 0;
+}
+.path-step{
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.path-step__num{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--c-white);
+  border: 2px solid var(--c-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--c-teal);
+  margin-bottom: 22px;
+}
+.path-step__label{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-ink);
+  margin: 0 0 12px;
+}
+.path-step__body{
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  margin: 0;
+  max-width: 240px;
+}
+
+/* SECTION 6 — strategic choice closer */
+.closer{
+  background: var(--c-ink);
+  color: #f5f5f5;
+  padding: 120px 32px;
+  text-align: center;
+}
+.closer__inner{ max-width: 880px; margin: 0 auto; }
+.closer__head{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 56px;
+  letter-spacing: -0.02em;
+}
+.closer__head .accent{ color: var(--c-teal); }
+.closer__pillars{
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 56px;
+  margin-bottom: 56px;
+}
+.closer__pillar{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.closer__pillar-label{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.55);
+}
+.closer__pillar-text{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
+}
+.closer__divider{
+  width: 1px;
+  background: rgba(255,255,255,0.18);
+}
+.closer .btn{
+  width: auto;
+  padding: 16px 32px;
+  font-size: 15px;
+  border-color: var(--c-teal);
+}
+
+/* shared responsive for new sections */
+@media (max-width: 1024px){
+  .usp-grid{ grid-template-columns: repeat(2, 1fr); }
+  .carousel__card{ flex: 0 0 536px; }
+  .path-flow::before{ left: 12.5%; right: 12.5%; }
+}
+@media (max-width: 768px){
+  .section{ padding: 64px 20px; }
+  .section__head{ margin-bottom: 40px; }
+  .section__head h2{ font-size: 26px; }
+  .bottleneck-grid{ grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+  .barchart{ padding: 24px 20px; }
+  .barchart__row{ grid-template-columns: 130px 1fr 48px; gap: 12px; }
+  .barchart__label{ font-size: 14px; }
+  .barchart__caption{ font-size: 14px; }
+  .carousel__card{ flex: 0 0 536px; }
+  .carousel__nav{ display: none; }
+  .usp-grid{ grid-template-columns: 1fr; }
+  .usp-tile__stat{ font-size: 56px; }
+  .compare__row{ grid-template-columns: 1fr; }
+  .compare__row--head{ display: none; }
+  .compare__cell{ padding: 12px 20px; font-size: 16px; }
+  .compare__cell--feature{ background: var(--c-fog); padding-top: 14px; padding-bottom: 14px; }
+  .compare__cell--noa::before{ content: "NOA Wireless · "; font-size: 16px; letter-spacing: 0.04em; color: var(--c-teal); margin-right: 8px; text-transform: uppercase; }
+  .compare__cell--pogo::before{ content: "Pogo Pins · "; font-size: 16px; letter-spacing: 0.04em; color: var(--c-mid); margin-right: 8px; text-transform: uppercase; }
+  .compare__cell--qi::before{ content: "Qi Standard · "; font-size: 16px; letter-spacing: 0.04em; color: var(--c-mid); margin-right: 8px; text-transform: uppercase; }
+  .compare__cell--swap::before{ content: "Battery Swap · "; font-size: 16px; letter-spacing: 0.04em; color: var(--c-mid); margin-right: 8px; text-transform: uppercase; }
+  .path-flow{ grid-template-columns: 1fr; gap: 36px; }
+  .path-flow::before{ display: none; }
+  .path-step__label{ font-size: 14px; }
+  .closer{ padding: 80px 20px; }
+  .closer__head{ font-size: 22px; margin-bottom: 40px; }
+  .closer__pillars{ flex-direction: column; gap: 28px; margin-bottom: 40px; }
+  .closer__divider{ display: none; }
+  .closer__pillar-label{ font-size: 13px; }
+  .eyebrow{ font-size: 14px; }
+  .site-nav a{ font-size: 14px; }
+  .site-footer h4{ font-size: 14px; }
+  .site-footer li{ font-size: 14px; }
+  .site-footer__brand p{ font-size: 14px; }
+  .site-footer__bottom{ font-size: 12px; flex-wrap: wrap; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .carousel__track{ scroll-behavior: auto; }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 980px){
+  .feature-grid{ grid-template-columns: 1fr; }
+  .feature-card{ grid-template-columns: 1fr; }
+  .feature-card__media{ height: 180px; }
+  .site-footer__inner{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px){
+  .ticker{ display: none; }
+  .stats__inner{ gap: 32px; }
+  .stats__divider{ display: none; }
+  .stat__value{ font-size: 44px; }
+  .site-header__inner{ padding: 12px 20px; }
+  .site-nav a:last-child{ display: none; }
+  .site-nav{ gap: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR (TICKER + HEADER) ============ -->
+<div class="topbar">
+  <div class="ticker" aria-label="Announcements">
+    <div class="ticker__inner" id="ticker">
+      <span class="ticker__flag" aria-hidden="true">🇦🇺</span>
+      <div class="ticker__item is-active">Designed and built in Australia</div>
+      <div class="ticker__item">Sovereign supply chain. No China-sourced components.</div>
+      <div class="ticker__item">Sovereign capability for AUKUS partners</div>
+    </div>
+  </div>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__logo" aria-label="NOA home">
+      <img src="assets/logo.svg" alt="NOA" />
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="tech.html">Technology</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Request a Dev Kit</a>
+    </nav>
+    <div class="site-header__social">
+      <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" aria-label="NOA on LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-label="NOA introduction">
+  <video class="hero__video" autoplay muted loop playsinline poster="assets/hero-bg.png" aria-hidden="true">
+    <source src="assets/NOA-DRONE-WIRELESS-CHARGE-26SEC_LOOP-UHD%202_1.mp4" type="video/mp4" />
+  </video>
+  <script>
+    (function(){
+      var w = window.innerWidth || document.documentElement.clientWidth || screen.width;
+      if(w > 0 && w <= 768){
+        var v = document.currentScript.previousElementSibling;
+        v.querySelector('source').src = 'assets/NOA-DRONE-WIRELESS-CHARGE-26SEC_MOBILE.mp4';
+        v.load();
+      }
+    })();
+  </script>
+</section>
+
+<!-- ============ STATS — proof-led ============ -->
+<section class="stats" aria-label="Proof points">
+  <div class="stats__inner">
+    <div class="stat">
+      <div class="stat__value">66<sub>%</sub></div>
+      <div class="stat__label">Fleet reduction</div>
+      <div class="stat__sub">A drone-as-a-service customer — 18 drones to 6 across a 20-hectare plot.</div>
+    </div>
+    <div class="stats__divider" aria-hidden="true"></div>
+    <div class="stat">
+      <div class="stat__value">28<sub>°C</sub></div>
+      <div class="stat__label">Operating temperature</div>
+      <div class="stat__sub">Fanless. Versus 80–90&nbsp;°C in competing wireless systems.</div>
+    </div>
+    <div class="stats__divider" aria-hidden="true"></div>
+    <div class="stat">
+      <div class="stat__value">&lt;2<sub>s</sub></div>
+      <div class="stat__label">Charge starts on landing</div>
+      <div class="stat__sub">No plug. No operator. No alignment.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE CARDS ============ -->
+<section class="section-band" aria-label="Capabilities">
+  <div class="feature-grid">
+
+    <article class="feature-card">
+      <div class="feature-card__body">
+        <div>
+          <h3 class="feature-card__title">Contactless power</h3>
+          <p class="feature-card__desc">Power crosses a 5–20&nbsp;mm air gap, so the receiving device never needs a port. Sealed enclosures stay sealed — IP67/IP68 isn't a compromise, it's the default.</p>
+        </div>
+      </div>
+      <div class="feature-card__media feature-card__media--charging" role="img" aria-label="Wireless charging pad"></div>
+    </article>
+
+    <article class="feature-card">
+      <div class="feature-card__body">
+        <div>
+          <h3 class="feature-card__title">Cool by design</h3>
+          <p class="feature-card__desc">Up to 93% efficiency means almost nothing converts to heat. Modules run at 28&nbsp;°C while competing wireless systems hit 80–90&nbsp;°C — so you can dense-pack hardware, skip the fans, and stay invisible to thermal sensors.</p>
+        </div>
+      </div>
+      <div class="feature-card__media feature-card__media--patented" role="img" aria-label="NOA receiver coil"></div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ POSITIONING — PICKS & SHOVELS / USABILITY ============ -->
+<section class="section section--alt" id="positioning" aria-labelledby="positioning-heading">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="positioning-heading">The picks and shovels of autonomy.</h2>
+      <p>We're not building the drone, the robot, or the mining rig. We're building the wireless power infrastructure underneath every one of them — so the platforms running the field can run without a person plugging anything in.</p>
+    </div>
+
+    <div class="bottleneck-grid">
+      <article class="bottleneck-card">
+        <span class="eyebrow">WiTricity</span>
+        <p><strong>Owns power.</strong> Optimised for EV-class kilowatts with the IP estate to match. Powerful, expensive, and over-built for a robot that needs 50&nbsp;W on a base station the size of a coaster.</p>
+      </article>
+      <article class="bottleneck-card">
+        <span class="eyebrow">Energous &amp; long-range</span>
+        <p><strong>Owns distance.</strong> Optimised for over-the-air transfer at metres. The physics of long range comes at a permanent efficiency cost — fine for sensors, wrong for fleet charging.</p>
+      </article>
+      <article class="bottleneck-card" style="border-color: var(--c-teal); border-width: 2px;">
+        <span class="eyebrow">NOA</span>
+        <p><strong>Owns usability.</strong> Engineered for the real deployment problem: dense form factors, mixed environments, and integration teams that need it on the bench in days. Ready now, not in five years.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 1 — BOTTLENECK ============ -->
+<section class="section" id="bottleneck" aria-labelledby="bottleneck-heading">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="bottleneck-heading">The autonomy bottleneck</h2>
+      <p>Three failure modes stand between fleets and full autonomy.</p>
+    </div>
+
+    <div class="bottleneck-grid">
+      <article class="bottleneck-card">
+        <span class="eyebrow">Mechanical failure</span>
+        <p>Pogo pins fatigue. Connectors corrode. Brushes wear out. Every cycle moves the fleet one closer to unscheduled downtime — and unscheduled downtime kills fleet economics.</p>
+      </article>
+      <article class="bottleneck-card">
+        <span class="eyebrow">Environmental risk</span>
+        <p>Dirt, water and chemicals attack every physical contact in the field. A single sealed enclosure beats every rated connector once the ingress finds its way in.</p>
+      </article>
+      <article class="bottleneck-card">
+        <span class="eyebrow">Operational friction</span>
+        <p>Precision docking burns through charging windows. Operators rotating connectors burn through hours. Together they cap the case for autonomous fleets at scale.</p>
+      </article>
+    </div>
+
+    <div class="barchart" role="img" aria-label="Maintenance events per 1000 cycles: Manual Swap 85, Pogo Pins 60, NOA Wireless 5">
+      <h3 class="barchart__title">Maintenance events per 1000 cycles</h3>
+      <div class="barchart__row">
+        <div class="barchart__label">Manual Swap</div>
+        <div class="barchart__track"><div class="barchart__fill" style="width: 100%;"></div></div>
+        <div class="barchart__value">85</div>
+      </div>
+      <div class="barchart__row">
+        <div class="barchart__label">Pogo Pins</div>
+        <div class="barchart__track"><div class="barchart__fill" style="width: 70.6%;"></div></div>
+        <div class="barchart__value">60</div>
+      </div>
+      <div class="barchart__row">
+        <div class="barchart__label">NOA Wireless</div>
+        <div class="barchart__track"><div class="barchart__fill barchart__fill--brand" style="width: 5.9%;"></div></div>
+        <div class="barchart__value">5</div>
+      </div>
+      <p class="barchart__caption">Source: NOA internal reliability data</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 — INDUSTRIES CAROUSEL ============ -->
+<section class="section section--alt" id="industries" aria-labelledby="industries-heading">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="industries-heading">Built for the platforms running the field</h2>
+      <p>Five environments where contactless, industrial-grade wireless power changes what's possible.</p>
+    </div>
+
+    <div class="carousel">
+      <div class="carousel__track" role="region" aria-label="Industries" tabindex="0">
+        <article class="carousel__card">
+          <div class="carousel__card-image" style="background-image: url('assets/MilitaryDrone.webp');" role="img" aria-label="Defence UAV"></div>
+          <div class="carousel__card-body">
+            <h3 class="carousel__card-headline">Sovereign power for AUKUS platforms.</h3>
+            <p>Australian-engineered, with a supply chain free of China-sourced critical components. Sealed enclosures and low thermal signature suit covert and forward operations. Compatible with AUKUS partner platforms across air, ground and maritime domains.</p>
+          </div>
+        </article>
+        <article class="carousel__card">
+          <div class="carousel__card-image" style="background-image: url('assets/Warehousing-drones.webp');" role="img" aria-label="Warehouse AMR"></div>
+          <div class="carousel__card-body">
+            <h3 class="carousel__card-headline">Warehouse fleets that don't stop for plugs.</h3>
+            <p>AMRs charge by parking on a pad — no docking arm, no operator, no precision tolerance. Sealed casings stay sealed against floor dust and washdown. Shift rotations run continuously, with no swap-out windows hard-wired into the schedule.</p>
+          </div>
+        </article>
+        <article class="carousel__card">
+          <div class="carousel__card-image" style="background-image: url('assets/UAV-DroneStation.webp');" role="img" aria-label="Drone landing"></div>
+          <div class="carousel__card-body">
+            <h3 class="carousel__card-headline">Persistent flight without ground crew.</h3>
+            <p>Drones land on a pad and recharge inductively, with no plug to align in wind or low light. Payloads stay sealed against rain and dust, IP-rated by default. Surveillance, inspection and agricultural monitoring missions extend from minutes to days.</p>
+          </div>
+        </article>
+        <article class="carousel__card">
+          <div class="carousel__card-image" style="background-image: url('assets/MiningDrone.webp');" role="img" aria-label="Ground robot"></div>
+          <div class="carousel__card-body">
+            <h3 class="carousel__card-headline">Built for mud, vibration and twelve-hour patrols.</h3>
+            <p>Power crosses contaminated air gaps without losing efficiency or shorting out. Patrol robots, mining vehicles and inspection rovers recharge at fixed stations or moving rigs without stopping for a connector. Maintenance drops to near-zero across the fleet.</p>
+          </div>
+        </article>
+        <article class="carousel__card">
+          <div class="carousel__card-image" style="background-image: url('assets/industrial-Drone.webp');" role="img" aria-label="Industrial drone"></div>
+          <div class="carousel__card-body">
+            <h3 class="carousel__card-headline">Where physical contacts simply can't exist.</h3>
+            <p>Subsea ROVs, clean rooms and hazardous-environment platforms can't tolerate any exposed conductor — particulates leak in, sparks fly out, and a single failed docking corrodes the next ten. Inductive power passes through sealed barriers (glass, plastic, water) at full efficiency. The enclosure stays closed for the life of the platform.</p>
+          </div>
+        </article>
+      </div>
+      <div class="carousel__nav">
+        <button type="button" class="carousel__btn carousel__btn--prev" aria-label="Previous industry">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="carousel__btn carousel__btn--next" aria-label="Next industry">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 — CORE USP STATS ============ -->
+<section class="section" id="specs" aria-labelledby="specs-heading">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="specs-heading">Numbers that earn the platform</h2>
+      <p>Four metrics, four operational consequences.</p>
+    </div>
+
+    <div class="usp-grid">
+      <div class="usp-tile">
+        <span class="eyebrow">Maintenance load</span>
+        <div class="usp-tile__stat">5<sub>/1000</sub></div>
+        <p class="usp-tile__consequence">Maintenance events per 1000 cycles. Pogo pins log 60. Manual swaps log 85. Source: NOA internal reliability data.</p>
+      </div>
+      <div class="usp-tile">
+        <span class="eyebrow">Transfer efficiency</span>
+        <div class="usp-tile__stat">93%</div>
+        <p class="usp-tile__consequence">Almost nothing converts to heat. Modules run cool enough to dense-pack with no fans.</p>
+      </div>
+      <div class="usp-tile">
+        <span class="eyebrow">Reference deployment</span>
+        <div class="usp-tile__stat">~$214K</div>
+        <p class="usp-tile__consequence">Equipment savings on a single drone-as-a-service deployment — fewer airframes, no ground crew rotating batteries.</p>
+      </div>
+      <div class="usp-tile">
+        <span class="eyebrow">Safety response</span>
+        <div class="usp-tile__stat">&lt;2<sub>ms</sub></div>
+        <p class="usp-tile__consequence">Foreign-object detection and thermal protection cut power before damage. Built in, not bolted on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 — COMPARISON ============ -->
+<section class="section section--alt" id="comparison" aria-labelledby="comparison-heading">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="comparison-heading">How NOA compares</h2>
+      <p>Two incumbents. Two different reasons they fall short.</p>
+    </div>
+
+    <div class="compare-tabs">
+      <div class="compare-tabs__list" role="tablist" aria-label="Comparison: NOA vs alternatives">
+        <button type="button" role="tab" id="tab-pogo" aria-selected="true" aria-controls="panel-pogo" tabindex="0" class="compare-tabs__btn">vs Pogo Pins</button>
+        <button type="button" role="tab" id="tab-swap" aria-selected="false" aria-controls="panel-swap" tabindex="-1" class="compare-tabs__btn">vs Battery Swap</button>
+        <button type="button" role="tab" id="tab-qi" aria-selected="false" aria-controls="panel-qi" tabindex="-1" class="compare-tabs__btn">vs Qi Standard</button>
+      </div>
+
+      <div class="compare-tabs__panels">
+        <div role="tabpanel" id="panel-pogo" aria-labelledby="tab-pogo" class="compare-tabs__panel">
+          <div class="compare" role="table" aria-label="NOA vs pogo pins comparison">
+            <div class="compare__row compare__row--head" role="row">
+              <div class="compare__cell compare__cell--feature" role="columnheader">Feature</div>
+              <div class="compare__cell" role="columnheader">NOA Wireless</div>
+              <div class="compare__cell" role="columnheader">Pogo Pins</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Physical contact</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>None (inductive)</div>
+              <div class="compare__cell compare__cell--pogo" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Required</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Wear &amp; tear</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Zero — no moving parts</div>
+              <div class="compare__cell compare__cell--pogo" role="cell"><span class="compare__indicator" aria-hidden="true"></span>High — spring fatigue</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Environment</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Sealed, submersible</div>
+              <div class="compare__cell compare__cell--pogo" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Exposed, vulnerable</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Maintenance</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>None required</div>
+              <div class="compare__cell compare__cell--pogo" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Frequent cleaning</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Reliability</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Constant over time</div>
+              <div class="compare__cell compare__cell--pogo" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Degrades over time</div>
+            </div>
+          </div>
+
+          <div class="compare-callout">
+            <strong>Bottom line:</strong>Pogo pins win the BOM line. They lose the maintenance line. NOA inverts both over the life of the fleet.
+          </div>
+        </div>
+
+        <div role="tabpanel" id="panel-swap" aria-labelledby="tab-swap" class="compare-tabs__panel" hidden>
+          <div class="compare" role="table" aria-label="NOA vs Battery Swap comparison">
+            <div class="compare__row compare__row--head" role="row">
+              <div class="compare__cell compare__cell--feature" role="columnheader">Feature</div>
+              <div class="compare__cell" role="columnheader">NOA Wireless</div>
+              <div class="compare__cell" role="columnheader">Battery Swap</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Operator required</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>None — drone lands and charges</div>
+              <div class="compare__cell compare__cell--swap" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Certified technician per swap</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Training overhead</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>None</div>
+              <div class="compare__cell compare__cell--swap" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Months — hazardous load handling</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Cycle time</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Land &amp; charge — autonomous</div>
+              <div class="compare__cell compare__cell--swap" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Minutes per swap, gated by labour</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Human-error risk</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Designed out of the loop</div>
+              <div class="compare__cell compare__cell--swap" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Wrong-way connectors, shorts, drops</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Fleet ceiling</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Scales beyond the human-tech ratio</div>
+              <div class="compare__cell compare__cell--swap" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Capped by available technicians</div>
+            </div>
+          </div>
+
+          <div class="compare-callout">
+            <strong>Bottom line:</strong>Battery swap turns every charge into a labour event. NOA removes the operator from the loop entirely.
+          </div>
+        </div>
+
+        <div role="tabpanel" id="panel-qi" aria-labelledby="tab-qi" class="compare-tabs__panel" hidden>
+          <div class="compare" role="table" aria-label="NOA vs Qi Standard comparison">
+            <div class="compare__row compare__row--head" role="row">
+              <div class="compare__cell compare__cell--feature" role="columnheader">Feature</div>
+              <div class="compare__cell" role="columnheader">NOA Wireless</div>
+              <div class="compare__cell" role="columnheader">Qi Standard</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Power output</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>1–500&nbsp;W configurable</div>
+              <div class="compare__cell compare__cell--qi" role="cell"><span class="compare__indicator" aria-hidden="true"></span>15–30&nbsp;W max</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Alignment</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>High tolerance</div>
+              <div class="compare__cell compare__cell--qi" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Precise placement required</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Environment</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Dirt, water, vibration</div>
+              <div class="compare__cell compare__cell--qi" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Clean, indoor only</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Thermal</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>28&nbsp;°C at full load</div>
+              <div class="compare__cell compare__cell--qi" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Derates above 40&nbsp;°C</div>
+            </div>
+            <div class="compare__row" role="row">
+              <div class="compare__cell compare__cell--feature" role="cell">Class</div>
+              <div class="compare__cell compare__cell--noa" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Industrial infrastructure</div>
+              <div class="compare__cell compare__cell--qi" role="cell"><span class="compare__indicator" aria-hidden="true"></span>Consumer convenience</div>
+            </div>
+          </div>
+
+          <div class="compare-callout">
+            <strong>Bottom line:</strong>Qi maxes out at 30 W on clean indoor surfaces. NOA runs from 1 W to 500 W in dust, vibration and washdown.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 — PATH TO INTEGRATION ============ -->
+<section class="section" id="path" aria-labelledby="path-heading">
+  <div class="section__inner">
+    <div class="section__head">
+      <h2 id="path-heading">The path to integration</h2>
+      <p>Validate before you commit. Scale when you're ready.</p>
+    </div>
+
+    <div class="path-flow">
+      <div class="path-step">
+        <div class="path-step__num">01</div>
+        <h3 class="path-step__label">Validate</h3>
+        <p class="path-step__body">We seed a Dev Kit to your engineering team — hardware on the bench in days, so NOA is proven on your platform before any commitment.</p>
+      </div>
+      <div class="path-step">
+        <div class="path-step__num">02</div>
+        <h3 class="path-step__label">Integrate</h3>
+        <p class="path-step__body">Engineering support from day one. The integration is tailored to your platform's power envelope, form factor and operating environment.</p>
+      </div>
+      <div class="path-step">
+        <div class="path-step__num">03</div>
+        <h3 class="path-step__label">Secure</h3>
+        <p class="path-step__body">Lock in production supply, scope and roadmap. Position the platform ahead of competitors still relying on physical connectors.</p>
+      </div>
+      <div class="path-step">
+        <div class="path-step__num">04</div>
+        <h3 class="path-step__label">Scale</h3>
+        <p class="path-step__body">Set-and-forget power infrastructure across the fleet. Wireless charging becomes part of the operating environment, not a maintenance line item.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 — STRATEGIC CHOICE CLOSER ============ -->
+<section class="closer" id="close" aria-labelledby="closer-heading">
+  <div class="closer__inner">
+    <h2 id="closer-heading" class="closer__head">Most charging tech buys you a connector that wears out.<br>NOA buys you the <span class="accent">hours your fleet stays in service</span>.</h2>
+    <div class="closer__pillars">
+      <div class="closer__pillar">
+        <span class="closer__pillar-label">Strategic</span>
+        <span class="closer__pillar-text">Fewer maintenance events per 1000 cycles</span>
+      </div>
+      <div class="closer__divider" aria-hidden="true"></div>
+      <div class="closer__pillar">
+        <span class="closer__pillar-label">Operational</span>
+        <span class="closer__pillar-text">No human in the charging loop</span>
+      </div>
+    </div>
+    <a href="mailto:dpaull@noathebrand.com" class="btn">Tell us what you're building</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <img src="assets/NOA-Logo-White.svg" alt="NOA" />
+      <p>Australian-engineered contactless power for autonomous systems. Sovereign supply chain. Built for the field.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="tech.html">Technology</a></li>
+        <li><a href="contact.html">Dev Kit</a></li>
+        <li><a href="tech.html#roadmap">250&nbsp;W roadmap</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#sovereignty">Sovereignty</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="mailto:enquiries@noathebrand.com">enquiries@noathebrand.com</a></li>
+        <li><a href="mailto:dpaull@noathebrand.com">dpaull@noathebrand.com</a> · engineering briefs</li>
+        <li>Sydney, Australia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© 2026 NOA. All rights reserved.</span>
+    <span>Wireless power. Zero contact.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var items = document.querySelectorAll('.ticker__item');
+  if(items.length < 2) return;
+  var i = 0;
+  var paused = false;
+  var rail = document.getElementById('ticker');
+  if(rail){
+    rail.addEventListener('mouseenter', function(){ paused = true; });
+    rail.addEventListener('mouseleave', function(){ paused = false; });
+  }
+  setInterval(function(){
+    if(paused) return;
+    items[i].classList.remove('is-active');
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-active');
+  }, 5000);
+})();
+
+// Industries carousel — manual horizontal scroll-snap
+(function(){
+  var carousels = document.querySelectorAll('.carousel');
+  carousels.forEach(function(carousel){
+    var track = carousel.querySelector('.carousel__track');
+    var prevBtn = carousel.querySelector('.carousel__btn--prev');
+    var nextBtn = carousel.querySelector('.carousel__btn--next');
+    if(!track) return;
+
+    function getStep(){
+      var card = track.querySelector('.carousel__card');
+      if(!card) return 300;
+      var style = getComputedStyle(track);
+      var gap = parseFloat(style.columnGap || style.gap) || 24;
+      return card.offsetWidth + gap;
+    }
+
+    function updateButtons(){
+      if(!prevBtn || !nextBtn) return;
+      var maxScroll = track.scrollWidth - track.clientWidth;
+      prevBtn.disabled = track.scrollLeft <= 1;
+      nextBtn.disabled = track.scrollLeft >= maxScroll - 1;
+    }
+
+    if(prevBtn){
+      prevBtn.addEventListener('click', function(){
+        track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+      });
+    }
+    if(nextBtn){
+      nextBtn.addEventListener('click', function(){
+        track.scrollBy({ left: getStep(), behavior: 'smooth' });
+      });
+    }
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  });
+})();
+
+// Comparison tabs — ARIA tab pattern with keyboard support
+(function(){
+  var containers = document.querySelectorAll('.compare-tabs');
+  containers.forEach(function(container){
+    var tabs = Array.prototype.slice.call(container.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function(tab){
+      return document.getElementById(tab.getAttribute('aria-controls'));
+    });
+    if(tabs.length < 2) return;
+
+    function activate(idx, focusTab){
+      tabs.forEach(function(tab, i){
+        var active = i === idx;
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.tabIndex = active ? 0 : -1;
+        var panel = panels[i];
+        if(panel){
+          if(active){ panel.removeAttribute('hidden'); }
+          else { panel.setAttribute('hidden', ''); }
+        }
+      });
+      if(focusTab && tabs[idx]) tabs[idx].focus();
+    }
+
+    tabs.forEach(function(tab, idx){
+      tab.addEventListener('click', function(){ activate(idx, false); });
+      tab.addEventListener('keydown', function(e){
+        var max = tabs.length - 1;
+        var newIdx = -1;
+        switch(e.key){
+          case 'ArrowRight': newIdx = idx === max ? 0 : idx + 1; break;
+          case 'ArrowLeft':  newIdx = idx === 0 ? max : idx - 1; break;
+          case 'Home':       newIdx = 0; break;
+          case 'End':        newIdx = max; break;
+        }
+        if(newIdx >= 0){
+          e.preventDefault();
+          activate(newIdx, true);
+        }
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
