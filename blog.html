@@ -22,8 +22,8 @@
 
 /* Page intro */
 .blog-intro{
-  max-width: 880px;
-  margin: 0 auto 48px;
+  max-width: 760px;
+  margin: 0 auto 56px;
   text-align: center;
 }
 .blog-intro__lead{
@@ -40,40 +40,6 @@
   line-height: 1.65;
   color: var(--c-charcoal);
   margin: 0;
-}
-
-/* Filter tabs — matches the FAQ audience-tab pattern */
-.blog-filter__list{
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  margin-bottom: 48px;
-}
-.blog-filter__btn{
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1.25;
-  letter-spacing: -0.005em;
-  padding: 4px 0 12px;
-  background: transparent;
-  border: 0;
-  border-bottom: 3px solid transparent;
-  border-radius: 0;
-  color: var(--c-mid);
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-.blog-filter__btn:hover{ color: var(--c-teal); }
-.blog-filter__btn[aria-selected="true"]{
-  color: var(--c-ink);
-  border-bottom-color: var(--c-teal);
-}
-.blog-filter__btn[aria-selected="true"]:hover{ color: var(--c-ink); }
-.blog-filter__btn:focus-visible{
-  outline: 2px solid var(--c-teal);
-  outline-offset: 4px;
 }
 
 /* Posts grid */
@@ -95,27 +61,27 @@
 }
 .blog-card:hover{
   border-color: var(--c-teal);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
   transform: translateY(-2px);
 }
+.blog-card__link{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.blog-card__media{
+  aspect-ratio: 16 / 9;
+  background-color: var(--c-fog);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .blog-card__body{
-  padding: 26px 26px 24px;
+  padding: 24px 26px 26px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   flex: 1;
-}
-.blog-card__chip{
-  align-self: flex-start;
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--c-teal);
-  background: rgba(44, 190, 192, 0.10);
-  padding: 6px 12px;
-  border-radius: 99px;
 }
 .blog-card__title{
   font-family: var(--font-head);
@@ -147,12 +113,8 @@
   border-radius: 50%;
   background: var(--c-iron);
 }
-.blog-card__link{
-  display: block;
-  height: 100%;
-}
 
-/* Empty state — shown when no posts match the filter */
+/* Empty state — shown when no posts exist */
 .blog-empty{
   max-width: 720px;
   margin: 0 auto;
@@ -188,16 +150,13 @@
   font-size: 15px;
 }
 
-/* CTA closer (matches other pages) */
 @media (max-width: 1024px){
   .blog-grid{ grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px){
   .blog-intro__lead{ font-size: 22px; }
-  .blog-filter__list{ gap: 22px; margin-bottom: 32px; }
-  .blog-filter__btn{ font-size: 15px; }
   .blog-grid{ grid-template-columns: 1fr; gap: 18px; }
-  .blog-card__body{ padding: 22px 22px 20px; }
+  .blog-card__body{ padding: 20px 22px 22px; }
   .blog-card__title{ font-size: 20px; }
   .blog-empty{ padding: 48px 22px; }
   .blog-empty h3{ font-size: 22px; }
@@ -242,7 +201,7 @@
   <div class="page-hero__inner">
     <span class="page-hero__eyebrow">Blog</span>
     <h1>Field notes.</h1>
-    <p class="page-hero__sub">Engineering teardowns, integration notes, defence-grade context, and strategic background — straight from the bench. Written for the people actually building, deploying and funding autonomous platforms.</p>
+    <p class="page-hero__sub">Long-form writing on the engineering, procurement and strategic context behind contactless wireless power for autonomous platforms. Notes from the bench, not the marketing department.</p>
   </div>
 </section>
 
@@ -250,38 +209,37 @@
 <section class="section">
   <div class="section__inner">
     <div class="blog-intro">
-      <p class="blog-intro__lead">Different rooms read for different reasons. Filter by yours.</p>
-      <p>Engineering posts cover bench-level integration, thermal behaviour, EMI posture and the questions a Dev Kit surfaces in its first week. Defence posts cover sovereignty posture, AUKUS-aligned sourcing, ITAR/DSGL context and platform fit. Strategic posts cover where NOA sits in the autonomy stack, market structure and the picks-and-shovels thesis behind the company.</p>
+      <p class="blog-intro__lead">No schedule. No filler.</p>
+      <p>Field notes ship when there's something worth saying — an integration insight that surfaces on the bench, a procurement question that keeps coming up, an industry event that sharpens the picks-and-shovels thesis. The list below runs newest first.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ POSTS + FILTER ============ -->
+<!-- ============ POSTS GRID ============ -->
 <section class="section section--alt" aria-labelledby="posts-h">
   <div class="section__inner">
-    <h2 id="posts-h" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Posts by audience</h2>
+    <h2 id="posts-h" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Posts</h2>
 
-    <div class="blog-filter">
-      <div class="blog-filter__list" role="tablist" aria-label="Filter posts by audience">
-        <button type="button" role="tab" id="filter-all" aria-selected="true" aria-controls="grid-all" tabindex="0" class="blog-filter__btn" data-filter="all">All</button>
-        <button type="button" role="tab" id="filter-eng" aria-selected="false" aria-controls="grid-all" tabindex="-1" class="blog-filter__btn" data-filter="engineering">Engineering</button>
-        <button type="button" role="tab" id="filter-def" aria-selected="false" aria-controls="grid-all" tabindex="-1" class="blog-filter__btn" data-filter="defence">Defence</button>
-        <button type="button" role="tab" id="filter-strat" aria-selected="false" aria-controls="grid-all" tabindex="-1" class="blog-filter__btn" data-filter="strategic">Strategic</button>
-      </div>
+    <!-- Posts grid — append <article class="blog-card"> entries here, newest first -->
+    <div class="blog-grid">
+      <!-- POSTS_START -->
 
-      <!-- Posts grid — append <article class="blog-card" data-tag="engineering|defence|strategic"> entries here -->
-      <div class="blog-grid" id="grid-all" role="tabpanel" aria-labelledby="filter-all">
-        <!-- POSTS_START -->
-        <!-- POSTS_END -->
-      </div>
+      <article class="blog-card">
+        <a href="blog/jakarta-fire-procurement-memo.html" class="blog-card__link">
+          <div class="blog-card__media" style="background-image: url('assets/blog/jakarta-fire-hero.webp');" role="img" aria-label="Gloved worker handling lithium battery cases in an industrial storage area"></div>
+          <div class="blog-card__body">
+            <h3 class="blog-card__title">22 dead. A 2 m × 2 m room. No exit.</h3>
+            <p class="blog-card__excerpt">A fire at a Jakarta drone-service facility killed 22 people on 9 December 2025. The OHS gaps the police catalogued are the audit every drone operator should be running this quarter.</p>
+            <div class="blog-card__meta">
+              <span>10 May 2026</span>
+              <span class="blog-card__meta-dot" aria-hidden="true"></span>
+              <span>5 min read</span>
+            </div>
+          </div>
+        </a>
+      </article>
 
-      <!-- Empty state — shown when grid is empty or no posts match the active filter -->
-      <div class="blog-empty" id="blog-empty">
-        <span class="eyebrow blog-empty__eyebrow">First post landing soon</span>
-        <h3>The first field note is in draft.</h3>
-        <p>Field notes ship when there's something worth saying — engineering work that surfaces a real integration insight, a procurement question that keeps coming up, or strategic context that sharpens the picks-and-shovels thesis. Subscribe via LinkedIn, or come back through the nav.</p>
-        <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" class="btn">Follow on LinkedIn</a>
-      </div>
+      <!-- POSTS_END -->
     </div>
   </div>
 </section>
@@ -346,9 +304,7 @@
 </footer>
 
 <script>
-/* ============================================================
-   Ticker
-   ============================================================ */
+/* Ticker */
 (function(){
   var items = document.querySelectorAll('.ticker__item');
   if(items.length < 2) return;
@@ -365,81 +321,6 @@
     i = (i + 1) % items.length;
     items[i].classList.add('is-active');
   }, 5000);
-})();
-
-/* ============================================================
-   Blog audience filter — ARIA tab pattern
-   Filters posts by data-tag attribute. Falls back to empty state.
-   ============================================================ */
-(function(){
-  var container = document.querySelector('.blog-filter');
-  if(!container) return;
-  var tabs = Array.prototype.slice.call(container.querySelectorAll('[role="tab"]'));
-  var grid = document.getElementById('grid-all');
-  var empty = document.getElementById('blog-empty');
-  if(!grid || tabs.length < 2) return;
-
-  function applyFilter(filter){
-    var cards = grid.querySelectorAll('.blog-card');
-    var visibleCount = 0;
-    cards.forEach(function(card){
-      var tag = (card.getAttribute('data-tag') || '').toLowerCase();
-      var match = filter === 'all' || tag === filter;
-      if(match){ card.removeAttribute('hidden'); visibleCount++; }
-      else { card.setAttribute('hidden', ''); }
-    });
-    if(empty){
-      if(visibleCount === 0){ empty.removeAttribute('hidden'); }
-      else { empty.setAttribute('hidden', ''); }
-    }
-  }
-
-  function activate(idx, focusTab){
-    tabs.forEach(function(tab, i){
-      var active = i === idx;
-      tab.setAttribute('aria-selected', active ? 'true' : 'false');
-      tab.tabIndex = active ? 0 : -1;
-    });
-    applyFilter(tabs[idx].getAttribute('data-filter') || 'all');
-    if(focusTab && tabs[idx]) tabs[idx].focus();
-  }
-
-  tabs.forEach(function(tab, idx){
-    tab.addEventListener('click', function(){ activate(idx, false); });
-    tab.addEventListener('keydown', function(e){
-      var max = tabs.length - 1;
-      var newIdx = -1;
-      switch(e.key){
-        case 'ArrowRight': newIdx = idx === max ? 0 : idx + 1; break;
-        case 'ArrowLeft':  newIdx = idx === 0 ? max : idx - 1; break;
-        case 'Home':       newIdx = 0; break;
-        case 'End':        newIdx = max; break;
-      }
-      if(newIdx >= 0){
-        e.preventDefault();
-        activate(newIdx, true);
-      }
-    });
-  });
-
-  /* Initial state — apply default filter so empty state shows correctly with zero posts */
-  applyFilter('all');
-
-  /* Deep-link via hash: #engineering, #defence, #strategic, #all */
-  var hashMap = {
-    'all': 0,
-    'engineering': 1, 'engineers': 1,
-    'defence': 2, 'defense': 2,
-    'strategic': 3, 'investors': 3, 'investor': 3
-  };
-  var hash = (window.location.hash || '').replace(/^#/,'').toLowerCase();
-  if(hash && hashMap.hasOwnProperty(hash)){
-    activate(hashMap[hash], false);
-  }
-  window.addEventListener('hashchange', function(){
-    var h = (window.location.hash || '').replace(/^#/,'').toLowerCase();
-    if(h && hashMap.hasOwnProperty(h)){ activate(hashMap[h], false); }
-  });
 })();
 </script>
 

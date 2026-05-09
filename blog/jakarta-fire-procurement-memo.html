@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>22 dead. A 2 m × 2 m room. No exit. — NOA Field notes</title>
+<meta name="description" content="A fire at a Jakarta drone-service facility killed 22 people on 9 December 2025. The OHS gaps the police catalogued are the audit every drone operator should be running this quarter — and the architectural failure underneath them is one wireless inductive power solves for at source." />
+
+<meta property="og:title" content="22 dead. A 2 m × 2 m room. No exit. — NOA" />
+<meta property="og:description" content="The drone industry's worst battery fire is a procurement memo. The OHS gaps the police catalogued are the audit every drone operator should be running this quarter." />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="../assets/blog/jakarta-fire-hero.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="../assets/blog/jakarta-fire-hero.webp" />
+<link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css" />
+
+<style>
+/* ============ post page — shared post layout ============ */
+
+/* Per-post hero variant — darker overlay for legibility over busy image */
+.page-hero--post-jakarta{
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.35)),
+    url('../assets/blog/jakarta-fire-hero.webp') center / cover no-repeat;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+}
+.page-hero--post-jakarta .page-hero__inner{ width: 100%; }
+
+/* Post meta line (date · read time) under hero copy */
+.post-meta{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  margin: 22px 0 0;
+}
+.post-meta__dot{
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+}
+
+/* Back link bar */
+.post-back{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 32px 0;
+}
+.post-back a{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-mid);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.15s ease;
+}
+.post-back a:hover{ color: var(--c-teal); }
+.post-back svg{ width: 14px; height: 14px; }
+
+/* Article body — long-form prose */
+.post-body{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 32px 56px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--c-charcoal);
+}
+.post-body > *:first-child{ margin-top: 0; }
+.post-body > *:last-child{ margin-bottom: 0; }
+.post-body p{ margin: 0 0 22px; }
+.post-body h2{
+  font-size: 26px;
+  line-height: 1.25;
+  margin: 48px 0 18px;
+  letter-spacing: -0.01em;
+}
+.post-body h3{
+  font-size: 20px;
+  line-height: 1.3;
+  margin: 36px 0 14px;
+  letter-spacing: -0.005em;
+}
+.post-body ul,
+.post-body ol{
+  margin: 0 0 22px;
+  padding-left: 24px;
+}
+.post-body li{ margin-bottom: 10px; }
+.post-body blockquote{
+  margin: 28px 0;
+  padding: 18px 24px;
+  border-left: 4px solid var(--c-teal);
+  background: var(--c-fog);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--c-ink);
+  border-radius: 0 8px 8px 0;
+}
+.post-body blockquote p{ margin: 0; }
+.post-body a{
+  color: var(--c-teal);
+  border-bottom: 1px solid rgba(44, 190, 192, 0.4);
+}
+.post-body a:hover{ border-bottom-color: var(--c-teal); }
+.post-body strong{
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+/* Sources footnote — small, muted, set apart from the body */
+.post-sources{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 32px 56px;
+}
+.post-sources__inner{
+  border-top: 1px solid var(--c-iron);
+  padding-top: 24px;
+}
+.post-sources h4{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--c-mid);
+  margin: 0 0 12px;
+}
+.post-sources p{
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-mid);
+  margin: 0;
+}
+
+/* End-of-post divider + back-to-blog */
+.post-end{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+  text-align: center;
+}
+.post-end__divider{
+  height: 1px;
+  background: var(--c-iron);
+  margin-bottom: 32px;
+}
+.post-end .btn{
+  width: auto;
+  padding: 14px 22px;
+  font-size: 15px;
+}
+
+@media (max-width: 768px){
+  .page-hero--post-jakarta{ min-height: 380px; }
+  .post-back{ padding: 22px 22px 0; }
+  .post-body{ padding: 22px 22px 40px; font-size: 16px; }
+  .post-body h2{ font-size: 22px; margin-top: 36px; }
+  .post-body h3{ font-size: 18px; margin-top: 28px; }
+  .post-body blockquote{ padding: 14px 18px; font-size: 17px; }
+  .post-sources{ padding: 0 22px 40px; }
+  .post-end{ padding: 0 22px 56px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="ticker" aria-label="Announcements">
+    <div class="ticker__inner" id="ticker">
+      <span class="ticker__flag" aria-hidden="true">🇦🇺</span>
+      <div class="ticker__item is-active">Designed and built in Australia</div>
+      <div class="ticker__item">Sovereign supply chain. No China-sourced components.</div>
+      <div class="ticker__item">Sovereign capability for AUKUS partners</div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="../index.html" class="site-header__logo" aria-label="NOA home">
+        <img src="../assets/logo.svg" alt="NOA" />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../tech.html">Technology</a>
+        <a href="../about.html">About</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <a href="../contact.html">Request a Dev Kit</a>
+      </nav>
+      <div class="site-header__social">
+        <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" aria-label="NOA on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero page-hero--post-jakarta">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">Field note</span>
+    <h1>22 dead. A 2&nbsp;m × 2&nbsp;m room. No exit.</h1>
+    <p class="page-hero__sub">The drone industry's worst battery fire is a procurement memo.</p>
+    <div class="post-meta">
+      <span class="post-meta__date">10 May 2026</span>
+      <span class="post-meta__dot" aria-hidden="true"></span>
+      <span class="post-meta__read">5 min read</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BACK LINK ============ -->
+<div class="post-back">
+  <a href="../blog.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    All field notes
+  </a>
+</div>
+
+<!-- ============ ARTICLE BODY ============ -->
+<article class="post-body">
+
+  <p>On the evening of 9 December 2025, a fire at a seven-storey building in Kemayoran, Central Jakarta, killed twenty-two employees of a publicly-listed industrial drone service provider. Fifteen women, seven men, one of them pregnant. Most died from smoke inhalation and oxygen deprivation rather than burns — the toxic plume rose through the upper floors faster than anyone could escape, because the building had no emergency exit.</p>
+
+  <p>The local CEO was arrested within 48 hours. The charges, filed under Articles 187, 188, and 359 of the Indonesian Criminal Code and the country's 1970 Occupational Safety Law, carry a maximum penalty of life imprisonment.</p>
+
+  <p>We're publishing this because the OHS gaps Indonesian National Police catalogued in Jakarta are gaps any drone operator can audit against tomorrow morning. The facility was Indonesian. The architectural failure isn't.</p>
+
+  <h2>What the police found</h2>
+
+  <p>Investigators traced ignition to a falling stack of damaged lithium drone batteries in a ground-floor storage room. The stack ignited. The room — two metres by two metres — had no fire-resistant construction and no ventilation. It also housed a heat-generating generator. Employees ran upstairs as the fire spread, and were trapped because the building had no emergency egress.</p>
+
+  <p>The catalogue of failures is, on paper, almost banal:</p>
+
+  <ul>
+    <li>No safety SOPs for battery storage or handling</li>
+    <li>No battery storage areas meeting any recognised safety standard</li>
+    <li>No designated occupational health and safety officers</li>
+    <li>No adequate emergency routes or evacuation facilities</li>
+    <li>No ventilation or thermal isolation for the battery storage room</li>
+  </ul>
+
+  <p>None of these gaps required a regulator to invent a new rule to identify. They were already failures against ordinary occupational-safety practice when the building was occupied. The fire revealed them.</p>
+
+  <h2>The architectural failure underneath the OHS failure</h2>
+
+  <p>The architectural choice that put the batteries in that room in the first place is the part the industry has been quieter about.</p>
+
+  <p>In any drone operation, batteries cycle. They go from charging to flight to inspection to disposal, and at each step they are physically touched, moved, racked, and — if a contact-charging interface is in the loop — plugged in and unplugged again. Damaged batteries accumulate. Batteries that have suffered a hard landing, a swollen cell, a contact-arc event during charging, or simple mechanical wear at the connector all end up in the same place. They have to be stored before they're disposed of correctly.</p>
+
+  <p>In the Jakarta facility, that place was a small, unventilated, generator-adjacent room. That choice is what regulators will write rules about over the next eighteen months. The supply-chain question underneath it — why are damaged batteries accumulating at this rate, in this volume, at every drone operator's site? — is the question every operator should be asking now.</p>
+
+  <p>A non-trivial fraction of those damaged batteries trace back to physical contact-charging interfaces — pogo pins, blade contacts, magnetic dock pads. Repeated docking cycles abrade the contact, raise the local resistance, and produce localised heating events that propagate into the cell. The damage shows up at the connector before it shows up in the storage room. Eliminate the connector and the population of damaged batteries shrinks at source.</p>
+
+  <p>Battery damage has many sources beyond the connector — flight loads, environmental cycling, calendar ageing — and contactless charging only addresses one of them. But it addresses the largest single touchpoint in the operator's daily workflow, and it does so without changing operator behaviour.</p>
+
+  <h2>The 18-month forward look</h2>
+
+  <p>Five regulators converged on lithium-ion fire risk in twelve months. OSHA's January 2026 letter of interpretation made personal Li-ion battery burns at the workplace recordable on the OSHA 300 log. EASA Safety Information Bulletin 2025-03 reinforced cabin-crew lithium-battery-risk awareness. The NSW Coroners Court opened a formal lithium-ion battery inquiry in December 2025. Queensland Fire Department logged 235 Li-ion fires in FY2024–25 alone. The ACCC tracked a sixfold rise in Li-ion product-safety reports between February 2021 and February 2023.</p>
+
+  <p>They're all moving the same way. The Jakarta fire gives the next round of rules a public event to point at.</p>
+
+  <p>For an operator running a drone fleet today, the practical implication is that the OHS audit you'd benefit from running this quarter — the audit against the five-point Indonesian police checklist above — is the audit your insurer, your customers, and your local equivalent of WorkSafe will be running in 2027. The cheapest version of that audit is the voluntary one.</p>
+
+  <h2>What we'd suggest you ask</h2>
+
+  <p>If you operate any drone fleet larger than a half-dozen units:</p>
+
+  <ol>
+    <li>Where are damaged batteries stored on your sites today? Is the room thermally isolated, ventilated, and free of heat sources?</li>
+    <li>Are there designated OHS officers with explicit responsibility for battery storage and handling?</li>
+    <li>Have you traced the population of damaged batteries back to their source — flight loads, environmental, or contact-charging-interface wear?</li>
+    <li>Does your charging architecture remove the human from the battery loop?</li>
+  </ol>
+
+  <p>The fourth question is what wireless inductive charging actually solves for. <strong>NOA</strong> builds Australian-engineered, sealed, contactless wireless-power modules for OEM integration into drone, AMR, ground-robot, and subsea platforms. The modules deliver up to 500&nbsp;W across a 5–20&nbsp;mm air gap, with foreign-object detection that cuts power in under two milliseconds. There's no connector to wear, no exposed metal to oxidise, no operator interaction with a damaged cell.</p>
+
+  <p>We send a <a href="../contact.html">Dev Kit</a> to qualified engineering teams so the architecture can be evaluated on-platform before any procurement commitment.</p>
+
+  <p>Twenty-two people died for a lesson the industry could have read in any OHS textbook. The cheapest version is the one we don't have to learn from a fire.</p>
+
+</article>
+
+<!-- ============ SOURCES ============ -->
+<aside class="post-sources" aria-labelledby="sources-h">
+  <div class="post-sources__inner">
+    <h4 id="sources-h">Sources</h4>
+    <p>Wikipedia, "2025 Terra Drone Building fire". DroneXL coverage, 12 December 2025. Nikkei Asia, "Jakarta police find Terra Drone fire caused by improperly stored batteries". OSHA letter of interpretation, 20 January 2026. EASA SIB 2025-03. QFD Commissioner Steve Smith AFSM, submission to Queensland Parliament. ACCC Li-ion consumer-product-safety report.</p>
+  </div>
+</aside>
+
+<!-- ============ END OF POST ============ -->
+<div class="post-end">
+  <div class="post-end__divider" aria-hidden="true"></div>
+  <a href="../blog.html" class="btn">Back to all field notes</a>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <img src="../assets/NOA-Logo-White.svg" alt="NOA" />
+      <p>Australian-engineered contactless power for autonomous systems. Sovereign supply chain. Built for the field.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="../tech.html">Technology</a></li>
+        <li><a href="../contact.html">Dev Kit</a></li>
+        <li><a href="../tech.html#roadmap">250&nbsp;W roadmap</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../about.html#sovereignty">Sovereignty</a></li>
+        <li><a href="../faq.html">FAQ</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="mailto:enquiries@noathebrand.com">enquiries@noathebrand.com</a></li>
+        <li><a href="mailto:dpaull@noathebrand.com">dpaull@noathebrand.com</a> · engineering briefs</li>
+        <li>Sydney, Australia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© 2026 NOA. All rights reserved.</span>
+    <span>Wireless power. Zero contact.</span>
+  </div>
+</footer>
+
+<script>
+/* Ticker */
+(function(){
+  var items = document.querySelectorAll('.ticker__item');
+  if(items.length < 2) return;
+  var i = 0;
+  var paused = false;
+  var rail = document.getElementById('ticker');
+  if(rail){
+    rail.addEventListener('mouseenter', function(){ paused = true; });
+    rail.addEventListener('mouseleave', function(){ paused = false; });
+  }
+  setInterval(function(){
+    if(paused) return;
+    items[i].classList.remove('is-active');
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-active');
+  }, 5000);
+})();
+</script>
+
+</body>
+</html>
