@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Field notes — NOA</title>
+<meta name="description" content="Field notes from NOA — engineering teardowns, integration questions, defence-grade context, and strategic background on contactless wireless power for autonomous platforms." />
+
+<meta property="og:title" content="NOA — Field notes" />
+<meta property="og:description" content="Engineering, defence and strategic context on contactless wireless power for autonomous platforms — straight from the bench." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css" />
+
+<style>
+/* ============ blog.html — page-specific ============ */
+
+/* Page intro */
+.blog-intro{
+  max-width: 880px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.blog-intro__lead{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.25;
+  color: var(--c-ink);
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+}
+.blog-intro p{
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--c-charcoal);
+  margin: 0;
+}
+
+/* Filter tabs — matches the FAQ audience-tab pattern */
+.blog-filter__list{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+.blog-filter__btn{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  padding: 4px 0 12px;
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  color: var(--c-mid);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.blog-filter__btn:hover{ color: var(--c-teal); }
+.blog-filter__btn[aria-selected="true"]{
+  color: var(--c-ink);
+  border-bottom-color: var(--c-teal);
+}
+.blog-filter__btn[aria-selected="true"]:hover{ color: var(--c-ink); }
+.blog-filter__btn:focus-visible{
+  outline: 2px solid var(--c-teal);
+  outline-offset: 4px;
+}
+
+/* Posts grid */
+.blog-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+.blog-card{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.blog-card:hover{
+  border-color: var(--c-teal);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.blog-card__body{
+  padding: 26px 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+.blog-card__chip{
+  align-self: flex-start;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+  background: rgba(44, 190, 192, 0.10);
+  padding: 6px 12px;
+  border-radius: 99px;
+}
+.blog-card__title{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--c-ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.blog-card__excerpt{
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--c-charcoal);
+  margin: 0;
+  flex: 1;
+}
+.blog-card__meta{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--c-mid);
+  margin-top: auto;
+}
+.blog-card__meta-dot{
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--c-iron);
+}
+.blog-card__link{
+  display: block;
+  height: 100%;
+}
+
+/* Empty state — shown when no posts match the filter */
+.blog-empty{
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--c-white);
+  border: 1px dashed var(--c-iron);
+  border-radius: 12px;
+  padding: 64px 32px;
+}
+.blog-empty__eyebrow{
+  display: block;
+  margin-bottom: 18px;
+  color: var(--c-teal);
+}
+.blog-empty h3{
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+}
+.blog-empty p{
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--c-mid);
+  margin: 0 0 24px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.blog-empty .btn{
+  width: auto;
+  padding: 14px 22px;
+  font-size: 15px;
+}
+
+/* CTA closer (matches other pages) */
+@media (max-width: 1024px){
+  .blog-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px){
+  .blog-intro__lead{ font-size: 22px; }
+  .blog-filter__list{ gap: 22px; margin-bottom: 32px; }
+  .blog-filter__btn{ font-size: 15px; }
+  .blog-grid{ grid-template-columns: 1fr; gap: 18px; }
+  .blog-card__body{ padding: 22px 22px 20px; }
+  .blog-card__title{ font-size: 20px; }
+  .blog-empty{ padding: 48px 22px; }
+  .blog-empty h3{ font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="ticker" aria-label="Announcements">
+    <div class="ticker__inner" id="ticker">
+      <span class="ticker__flag" aria-hidden="true">🇦🇺</span>
+      <div class="ticker__item is-active">Designed and built in Australia</div>
+      <div class="ticker__item">Sovereign supply chain. No China-sourced components.</div>
+      <div class="ticker__item">Sovereign capability for AUKUS partners</div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__logo" aria-label="NOA home">
+        <img src="assets/logo.svg" alt="NOA" />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="tech.html">Technology</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="blog.html" aria-current="page">Blog</a>
+        <a href="contact.html">Request a Dev Kit</a>
+      </nav>
+      <div class="site-header__social">
+        <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" aria-label="NOA on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">Blog</span>
+    <h1>Field notes.</h1>
+    <p class="page-hero__sub">Engineering teardowns, integration notes, defence-grade context, and strategic background — straight from the bench. Written for the people actually building, deploying and funding autonomous platforms.</p>
+  </div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="section">
+  <div class="section__inner">
+    <div class="blog-intro">
+      <p class="blog-intro__lead">Different rooms read for different reasons. Filter by yours.</p>
+      <p>Engineering posts cover bench-level integration, thermal behaviour, EMI posture and the questions a Dev Kit surfaces in its first week. Defence posts cover sovereignty posture, AUKUS-aligned sourcing, ITAR/DSGL context and platform fit. Strategic posts cover where NOA sits in the autonomy stack, market structure and the picks-and-shovels thesis behind the company.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POSTS + FILTER ============ -->
+<section class="section section--alt" aria-labelledby="posts-h">
+  <div class="section__inner">
+    <h2 id="posts-h" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Posts by audience</h2>
+
+    <div class="blog-filter">
+      <div class="blog-filter__list" role="tablist" aria-label="Filter posts by audience">
+        <button type="button" role="tab" id="filter-all" aria-selected="true" aria-controls="grid-all" tabindex="0" class="blog-filter__btn" data-filter="all">All</button>
+        <button type="button" role="tab" id="filter-eng" aria-selected="false" aria-controls="grid-all" tabindex="-1" class="blog-filter__btn" data-filter="engineering">Engineering</button>
+        <button type="button" role="tab" id="filter-def" aria-selected="false" aria-controls="grid-all" tabindex="-1" class="blog-filter__btn" data-filter="defence">Defence</button>
+        <button type="button" role="tab" id="filter-strat" aria-selected="false" aria-controls="grid-all" tabindex="-1" class="blog-filter__btn" data-filter="strategic">Strategic</button>
+      </div>
+
+      <!-- Posts grid — append <article class="blog-card" data-tag="engineering|defence|strategic"> entries here -->
+      <div class="blog-grid" id="grid-all" role="tabpanel" aria-labelledby="filter-all">
+        <!-- POSTS_START -->
+        <!-- POSTS_END -->
+      </div>
+
+      <!-- Empty state — shown when grid is empty or no posts match the active filter -->
+      <div class="blog-empty" id="blog-empty">
+        <span class="eyebrow blog-empty__eyebrow">First post landing soon</span>
+        <h3>The first field note is in draft.</h3>
+        <p>Field notes ship when there's something worth saying — engineering work that surfaces a real integration insight, a procurement question that keeps coming up, or strategic context that sharpens the picks-and-shovels thesis. Subscribe via LinkedIn, or come back through the nav.</p>
+        <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" class="btn">Follow on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA CLOSER ============ -->
+<section class="closer" id="close" aria-labelledby="closer-h">
+  <div class="closer__inner">
+    <h2 id="closer-h" class="closer__head">Reading is one thing.<br>Putting hardware on the bench is <span class="accent">where the answers live</span>.</h2>
+    <div class="closer__pillars">
+      <div class="closer__pillar">
+        <span class="closer__pillar-label">Selective</span>
+        <span class="closer__pillar-text">Dev Kits seed to qualifying teams only</span>
+      </div>
+      <div class="closer__divider" aria-hidden="true"></div>
+      <div class="closer__pillar">
+        <span class="closer__pillar-label">Direct</span>
+        <span class="closer__pillar-text">Integration brief in 15 minutes</span>
+      </div>
+    </div>
+    <a href="contact.html" class="btn">Request a Dev Kit</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <img src="assets/NOA-Logo-White.svg" alt="NOA" />
+      <p>Australian-engineered contactless power for autonomous systems. Sovereign supply chain. Built for the field.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="tech.html">Technology</a></li>
+        <li><a href="contact.html">Dev Kit</a></li>
+        <li><a href="tech.html#roadmap">250&nbsp;W roadmap</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#sovereignty">Sovereignty</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="mailto:enquiries@noathebrand.com">enquiries@noathebrand.com</a></li>
+        <li><a href="mailto:dpaull@noathebrand.com">dpaull@noathebrand.com</a> · engineering briefs</li>
+        <li>Sydney, Australia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© 2026 NOA. All rights reserved.</span>
+    <span>Wireless power. Zero contact.</span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Ticker
+   ============================================================ */
+(function(){
+  var items = document.querySelectorAll('.ticker__item');
+  if(items.length < 2) return;
+  var i = 0;
+  var paused = false;
+  var rail = document.getElementById('ticker');
+  if(rail){
+    rail.addEventListener('mouseenter', function(){ paused = true; });
+    rail.addEventListener('mouseleave', function(){ paused = false; });
+  }
+  setInterval(function(){
+    if(paused) return;
+    items[i].classList.remove('is-active');
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-active');
+  }, 5000);
+})();
+
+/* ============================================================
+   Blog audience filter — ARIA tab pattern
+   Filters posts by data-tag attribute. Falls back to empty state.
+   ============================================================ */
+(function(){
+  var container = document.querySelector('.blog-filter');
+  if(!container) return;
+  var tabs = Array.prototype.slice.call(container.querySelectorAll('[role="tab"]'));
+  var grid = document.getElementById('grid-all');
+  var empty = document.getElementById('blog-empty');
+  if(!grid || tabs.length < 2) return;
+
+  function applyFilter(filter){
+    var cards = grid.querySelectorAll('.blog-card');
+    var visibleCount = 0;
+    cards.forEach(function(card){
+      var tag = (card.getAttribute('data-tag') || '').toLowerCase();
+      var match = filter === 'all' || tag === filter;
+      if(match){ card.removeAttribute('hidden'); visibleCount++; }
+      else { card.setAttribute('hidden', ''); }
+    });
+    if(empty){
+      if(visibleCount === 0){ empty.removeAttribute('hidden'); }
+      else { empty.setAttribute('hidden', ''); }
+    }
+  }
+
+  function activate(idx, focusTab){
+    tabs.forEach(function(tab, i){
+      var active = i === idx;
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      tab.tabIndex = active ? 0 : -1;
+    });
+    applyFilter(tabs[idx].getAttribute('data-filter') || 'all');
+    if(focusTab && tabs[idx]) tabs[idx].focus();
+  }
+
+  tabs.forEach(function(tab, idx){
+    tab.addEventListener('click', function(){ activate(idx, false); });
+    tab.addEventListener('keydown', function(e){
+      var max = tabs.length - 1;
+      var newIdx = -1;
+      switch(e.key){
+        case 'ArrowRight': newIdx = idx === max ? 0 : idx + 1; break;
+        case 'ArrowLeft':  newIdx = idx === 0 ? max : idx - 1; break;
+        case 'Home':       newIdx = 0; break;
+        case 'End':        newIdx = max; break;
+      }
+      if(newIdx >= 0){
+        e.preventDefault();
+        activate(newIdx, true);
+      }
+    });
+  });
+
+  /* Initial state — apply default filter so empty state shows correctly with zero posts */
+  applyFilter('all');
+
+  /* Deep-link via hash: #engineering, #defence, #strategic, #all */
+  var hashMap = {
+    'all': 0,
+    'engineering': 1, 'engineers': 1,
+    'defence': 2, 'defense': 2,
+    'strategic': 3, 'investors': 3, 'investor': 3
+  };
+  var hash = (window.location.hash || '').replace(/^#/,'').toLowerCase();
+  if(hash && hashMap.hasOwnProperty(hash)){
+    activate(hashMap[hash], false);
+  }
+  window.addEventListener('hashchange', function(){
+    var h = (window.location.hash || '').replace(/^#/,'').toLowerCase();
+    if(h && hashMap.hasOwnProperty(h)){ activate(hashMap[h], false); }
+  });
+})();
+</script>
+
+</body>
+</html>
