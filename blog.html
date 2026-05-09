@@ -11,6 +11,7 @@
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+<script src="assets/staging-detect.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,6 +108,27 @@
 }
 .blog-card:hover .blog-card__more{
   border-bottom-color: var(--c-teal);
+}
+
+/* DRAFT chip — only shows on cards with data-draft="true" (staging only) */
+.blog-card[data-draft="true"] .blog-card__media{
+  position: relative;
+}
+.blog-card[data-draft="true"] .blog-card__media::after{
+  content: "DRAFT";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #f0a020;
+  color: #1a1a1a;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  padding: 5px 11px;
+  border-radius: 4px;
+  z-index: 2;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
 }
 
 /* Empty state — shown when no posts exist */
