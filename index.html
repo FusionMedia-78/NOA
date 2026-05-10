@@ -10,11 +10,11 @@
 <meta property="og:title" content="NOA — Wireless Power. Zero Contact." />
 <meta property="og:description" content="Australian-engineered contactless wireless power for autonomous platforms. Sovereign supply chain. Built for the field." />
 <meta property="og:type" content="website" />
-<meta property="og:image" content="assets/hero-bg.png" />
+<meta property="og:image" content="assets/hero-og.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="NOA — Wireless Power. Zero Contact." />
 <meta name="twitter:description" content="Australian-engineered contactless wireless power for autonomous platforms. Sovereign supply chain. Built for the field." />
-<meta name="twitter:image" content="assets/hero-bg.png" />
+<meta name="twitter:image" content="assets/hero-og.jpg" />
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,7 +193,7 @@ h4{ font-size: 16px; line-height: 1.32; }
 .hero{
   position: relative;
   min-height: 675px;
-  background: #0d0e10;
+  background: #0d0e10 url('assets/hero-bg.webp') center bottom / cover no-repeat;
   color: #f8f8f8;
   overflow: hidden;
 }
@@ -205,6 +205,11 @@ h4{ font-size: 16px; line-height: 1.32; }
   object-fit: cover;
   object-position: center bottom;
   z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.hero__video.is-playing{
+  opacity: 1;
 }
 .btn{
   display: inline-flex; align-items: center; justify-content: center;
@@ -957,16 +962,34 @@ h4{ font-size: 16px; line-height: 1.32; }
 
 <!-- ============ HERO ============ -->
 <section class="hero" aria-label="NOA introduction">
-  <video class="hero__video" autoplay muted loop playsinline poster="assets/hero-bg.png" aria-hidden="true">
+  <video class="hero__video" autoplay muted loop playsinline preload="none" aria-hidden="true">
     <source src="assets/NOA-hero-desktop.mp4" type="video/mp4" />
   </video>
   <script>
+    /* Image-first hero loader.
+       Mobile (<= 768px): remove video entirely — CSS background image is the hero.
+       Desktop: preload video and fade it in over the background image once it can play.
+       If the video never loads, the background image stays visible — no black flash. */
     (function(){
       var w = window.innerWidth || document.documentElement.clientWidth || screen.width;
-      if(w > 0 && w <= 768){
-        var v = document.currentScript.previousElementSibling;
-        v.querySelector('source').src = 'assets/NOA-hero-mobile.mp4';
-        v.load();
+      var video = document.currentScript.previousElementSibling;
+      if(!video) return;
+
+      if(w <= 768){
+        video.parentNode.removeChild(video);
+        return;
+      }
+
+      video.preload = 'auto';
+      video.load();
+
+      var showVideo = function(){
+        video.classList.add('is-playing');
+      };
+      if(video.readyState >= 3){
+        showVideo();
+      } else {
+        video.addEventListener('canplay', showVideo, { once: true });
       }
     })();
   </script>
