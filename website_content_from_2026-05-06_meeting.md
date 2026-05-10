@@ -21,7 +21,7 @@ Companion line, also from the call:
 
 This is the new competitive narrative James and Dave landed on. Worth making explicit on the site:
 
-> **WiTricity owns power. Energous owns distance. NOA owns usability.**
+> **Gen-1 wireless power technologies own power. Legacy wireless power systems own distance. NOA owns usability.**
 
 Supporting copy (paraphrased into website voice):
 

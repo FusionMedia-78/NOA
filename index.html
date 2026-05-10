@@ -278,6 +278,38 @@ h4{ font-size: 16px; line-height: 1.32; }
   align-self: stretch;
 }
 
+/* ---------- intro band (above stats) ---------- */
+.intro{
+  background: var(--c-white);
+  padding: 80px 32px 24px;
+}
+.intro__inner{
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+.intro__h1{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--c-ink);
+  margin: 0 0 22px;
+}
+.intro__body{
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--c-charcoal);
+  max-width: 720px;
+  margin: 0 auto;
+}
+@media (max-width: 768px){
+  .intro{ padding: 56px 20px 16px; }
+  .intro__h1{ font-size: 28px; }
+  .intro__body{ font-size: 17px; }
+}
+
 /* ---------- feature cards (Contactless / Patented) ---------- */
 .section-band{
   background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(102,102,102,0) 100%), var(--c-fog);
@@ -941,6 +973,14 @@ h4{ font-size: 16px; line-height: 1.32; }
   </script>
 </section>
 
+<!-- ============ INTRO — what NOA does ============ -->
+<section class="intro" aria-label="What NOA does">
+  <div class="intro__inner">
+    <h1 class="intro__h1">Wireless Charging Infrastructure for Autonomous Fleets</h1>
+    <p class="intro__body">NOA enables drones, robots and industrial platforms to recharge automatically without plugs, pogo pins or battery swaps.</p>
+  </div>
+</section>
+
 <!-- ============ STATS — proof-led ============ -->
 <section class="stats" aria-label="Proof points">
   <div class="stats__inner">
@@ -951,9 +991,9 @@ h4{ font-size: 16px; line-height: 1.32; }
     </div>
     <div class="stats__divider" aria-hidden="true"></div>
     <div class="stat">
-      <div class="stat__value">28<sub>°C</sub></div>
-      <div class="stat__label">Operating temperature</div>
-      <div class="stat__sub">Fanless. Versus 80–90&nbsp;°C in competing wireless systems.</div>
+      <div class="stat__value">~70<sub>%</sub></div>
+      <div class="stat__label">Lower operating temperature</div>
+      <div class="stat__sub">Runs fanless at ~28&nbsp;°C versus 80–90&nbsp;°C in conventional wireless power systems.</div>
     </div>
     <div class="stats__divider" aria-hidden="true"></div>
     <div class="stat">
@@ -1001,12 +1041,12 @@ h4{ font-size: 16px; line-height: 1.32; }
 
     <div class="bottleneck-grid">
       <article class="bottleneck-card">
-        <span class="eyebrow">WiTricity</span>
-        <p><strong>Owns power.</strong> Optimised for EV-class kilowatts with the IP estate to match. Powerful, expensive, and over-built for a robot that needs 50&nbsp;W on a base station the size of a coaster.</p>
+        <span class="eyebrow">Gen-1 wireless power technologies</span>
+        <p><strong>Built for power.</strong> Optimised for EV-class kilowatts with the IP estate to match. Powerful, expensive, and over-built for a robot that needs 50&nbsp;W on a base station the size of a coaster.</p>
       </article>
       <article class="bottleneck-card">
-        <span class="eyebrow">Energous &amp; long-range</span>
-        <p><strong>Owns distance.</strong> Optimised for over-the-air transfer at metres. The physics of long range comes at a permanent efficiency cost — fine for sensors, wrong for fleet charging.</p>
+        <span class="eyebrow">Legacy wireless power systems</span>
+        <p><strong>Built for distance.</strong> Optimised for over-the-air transfer at metres. The physics of long range comes at a permanent efficiency cost — fine for sensors, wrong for fleet charging.</p>
       </article>
       <article class="bottleneck-card" style="border-color: var(--c-teal); border-width: 2px;">
         <span class="eyebrow">NOA</span>
