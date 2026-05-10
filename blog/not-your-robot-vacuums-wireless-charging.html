@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Every objection in this thread was right when it was written. — NOA Field notes</title>
+<meta name="description" content="Three specs killed the wireless-charging trade-study before 2020 — efficiency, power transmission, and alignment. All three have moved since 2018. For the engineering-team reader who ran the trade-study, decided against, and hasn't revisited the decision since." />
+
+<meta property="og:title" content="Every objection in this thread was right when it was written. None of them is current. — NOA" />
+<meta property="og:description" content="This isn't your robot vacuum's wireless charging: the three specs that have changed since 2018." />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="../assets/Wired-Robotswebp.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="../assets/Wired-Robotswebp.webp" />
+<link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
+<script src="../assets/staging-detect.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css" />
+
+<style>
+/* ============ post page — shared post layout ============ */
+
+/* Per-post hero variant — darker overlay for legibility over busy image */
+.page-hero--post-robotvacuum{
+  background:
+    linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.4)),
+    url('../assets/Wired-Robotswebp.webp') center / cover no-repeat;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+}
+.page-hero--post-robotvacuum .page-hero__inner{ width: 100%; }
+
+/* Post meta line (date · read time) under hero copy */
+.post-meta{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  margin: 22px 0 0;
+}
+.post-meta__dot{
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+}
+
+/* Back link bar */
+.post-back{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 32px 0;
+}
+.post-back a{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-mid);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.15s ease;
+}
+.post-back a:hover{ color: var(--c-teal); }
+.post-back svg{ width: 14px; height: 14px; }
+
+/* Article body — long-form prose */
+.post-body{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 32px 56px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--c-charcoal);
+}
+.post-body > *:first-child{ margin-top: 0; }
+.post-body > *:last-child{ margin-bottom: 0; }
+.post-body p{ margin: 0 0 22px; }
+.post-body h2{
+  font-size: 26px;
+  line-height: 1.25;
+  margin: 48px 0 18px;
+  letter-spacing: -0.01em;
+}
+.post-body h3{
+  font-size: 20px;
+  line-height: 1.3;
+  margin: 36px 0 14px;
+  letter-spacing: -0.005em;
+}
+.post-body ul,
+.post-body ol{
+  margin: 0 0 22px;
+  padding-left: 24px;
+}
+.post-body li{ margin-bottom: 10px; }
+.post-body blockquote{
+  margin: 28px 0;
+  padding: 18px 24px;
+  border-left: 4px solid var(--c-teal);
+  background: var(--c-fog);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--c-ink);
+  border-radius: 0 8px 8px 0;
+}
+.post-body blockquote p{ margin: 0; }
+.post-body a{
+  color: var(--c-teal);
+  border-bottom: 1px solid rgba(44, 190, 192, 0.4);
+}
+.post-body a:hover{ border-bottom-color: var(--c-teal); }
+.post-body strong{
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+/* Sources footnote — small, muted, set apart from the body */
+.post-sources{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 32px 56px;
+}
+.post-sources__inner{
+  border-top: 1px solid var(--c-iron);
+  padding-top: 24px;
+}
+.post-sources h4{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--c-mid);
+  margin: 0 0 12px;
+}
+.post-sources p{
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-mid);
+  margin: 0;
+}
+
+/* End-of-post divider + back-to-blog */
+.post-end{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+  text-align: center;
+}
+.post-end__divider{
+  height: 1px;
+  background: var(--c-iron);
+  margin-bottom: 32px;
+}
+.post-end .btn{
+  width: auto;
+  padding: 14px 22px;
+  font-size: 15px;
+}
+
+@media (max-width: 768px){
+  .page-hero--post-robotvacuum{ min-height: 380px; }
+  .post-back{ padding: 22px 22px 0; }
+  .post-body{ padding: 22px 22px 40px; font-size: 16px; }
+  .post-body h2{ font-size: 22px; margin-top: 36px; }
+  .post-body h3{ font-size: 18px; margin-top: 28px; }
+  .post-body blockquote{ padding: 14px 18px; font-size: 17px; }
+  .post-sources{ padding: 0 22px 40px; }
+  .post-end{ padding: 0 22px 56px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="ticker" aria-label="Announcements">
+    <div class="ticker__inner" id="ticker">
+      <span class="ticker__flag" aria-hidden="true">&#127462;&#127482;</span>
+      <div class="ticker__item is-active">Designed and built in Australia</div>
+      <div class="ticker__item">Sovereign capability for AUKUS partners</div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="../index.html" class="site-header__logo" aria-label="NOA home">
+        <img src="../assets/logo.svg" alt="NOA" />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../tech.html">Technology</a>
+        <a href="../about.html">About</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <a href="../contact.html">Request a Dev Kit</a>
+      </nav>
+      <div class="site-header__social">
+        <a href="https://au.linkedin.com/company/noathebrand" target="_blank" rel="noopener" aria-label="NOA on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero page-hero--post-robotvacuum">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">Field note</span>
+    <h1>Every objection in this thread was right when it was written. None of them is current.</h1>
+    <p class="page-hero__sub">This isn't your robot vacuum's wireless charging: the three specs that have changed since 2018.</p>
+    <div class="post-meta">
+      <span class="post-meta__date">11 May 2026</span>
+      <span class="post-meta__dot" aria-hidden="true"></span>
+      <span class="post-meta__read">7 min read</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BACK LINK ============ -->
+<div class="post-back">
+  <a href="../blog.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    All field notes
+  </a>
+</div>
+
+<!-- ============ ARTICLE BODY ============ -->
+<article class="post-body">
+
+  <p>A recent r/robotics thread asked whether wireless charging was finally a game-changer for robot fleets. The senior engineers in the comments — including someone who explicitly identified themselves as having worked at <em>"a well-known robotic vacuum manufacturer"</em> — pushed back hard. The objections are worth reading verbatim, because they're correct, and that's why they matter.</p>
+
+  <blockquote>
+    <p>"When I worked for a well-known robotic vacuum manufacturer, the discussion came up about wireless charging. It had been looked into several times, but in the end the efficiency, the necessary power transmission, the needed sub-millimeter alignment etc etc all made it significantly less feasible than just plain charging pads."</p>
+  </blockquote>
+
+  <blockquote>
+    <p>"Wireless charging only good at bumping up the IP rating. Efficiency wise &rarr; sucks."</p>
+  </blockquote>
+
+  <blockquote>
+    <p>"Just the plain metal contacts the robot drives over to establish contact. They can oxidize, get dirty etc, but in the end it's still superior to wireless charging."</p>
+  </blockquote>
+
+  <p>Every objection in those comments was correct against the wireless-charging hardware engineering teams evaluated between 2014 and 2018. The Qi-standard ceiling, the alignment intolerance, the efficiency loss — all real, all measured, all the reason the robot-vacuum industry decided exposed metal pads were the better engineering trade-off.</p>
+
+  <p>The hardware has moved. The objections haven't.</p>
+
+  <p>This is for the engineering-team reader who ran the wireless-charging trade-study before, decided against, and hasn't revisited the decision since. Three specs got the trade-study killed last time. All three look different now.</p>
+
+  <h2>Spec 1 &mdash; Efficiency</h2>
+
+  <p>The robot-vacuum-era objection: <em>"wireless charging is too lossy."</em></p>
+
+  <p>Against 2018 hardware, that was right. Qi-class consumer wireless charging operated at roughly 60&ndash;75% wall-to-battery efficiency. The losses turned into heat at both the transmitter and the receiver. Heat set thermal limits, thermal limits set power-transfer limits, and the design loop closed on "wireless charging is for low-power devices only."</p>
+
+  <p>The 2026 hardware doesn't behave the same way. Industrial inductive wireless-power modules now operate at &gt;92% wall-to-battery efficiency under continuous load. NOA's modules hit 92% measured efficiency at 50&nbsp;W in a sealed, fanless enclosure that runs at 28&deg;C ambient — meaning the module can be dense-packed inside an airframe or chassis without thermal isolation. A German industrial wireless-power incumbent has published 93% on its AGV-class wireless charger.</p>
+
+  <p>It's not that 92% beats 75% — it's that at 92% the design constraint goes away. The dock no longer needs over-spec'd thermal headroom. The airframe no longer needs to cool the receiver. The energy-budget planner no longer has to discount wireless against contact charging by anything that affects a procurement decision.</p>
+
+  <p>If the trade-study you ran on efficiency was before 2020, the benchmark is out of date.</p>
+
+  <h2>Spec 2 &mdash; Power transmission ceiling</h2>
+
+  <p><em>"Wireless charging caps out at 15&nbsp;W. Real robots need real power."</em> That's the second objection, and it's anchored in the Qi standard's published power profile, which peaked at 15&nbsp;W. Going beyond 15&nbsp;W meant bespoke hardware, marginal compliance, and thermal trade-offs that pushed back into the efficiency objection above. Most robot-platform engineers benchmarked all wireless charging against the Qi number and moved on.</p>
+
+  <p>What ships in 2026 isn't a relative of Qi. Industrial wireless-power modules are now at 50&nbsp;W today, with 250&nbsp;W successor designs in field trial and 500&nbsp;W on the roadmap. NOA's current architecture is programmable across 1&ndash;500&nbsp;W for OEM customers who want to span a product family on a single platform.</p>
+
+  <p>50&nbsp;W isn't 15&nbsp;W with the volume turned up. It's a different power class, and the duty-cycle maths comes with it. A typical commercial drone hot-swaps a battery rated at roughly 250&ndash;700&nbsp;Wh. A 50&nbsp;W continuous wireless-charge capability lets a docked drone restore one full battery cycle inside the typical 5&ndash;8 hour shift gap, without operator interaction. A 250&nbsp;W successor restores it in under three hours.</p>
+
+  <p>What got ruled out before 2020 was Qi. Modern industrial inductive isn't the same product.</p>
+
+  <h2>Spec 3 &mdash; Alignment tolerance</h2>
+
+  <p>The third objection — the killer one for autonomous platforms — was alignment. <em>"The alignment requirements are sub-millimetre,"</em> the engineer wrote. <em>"Real autonomous landing is plus-or-minus centimetres at best."</em></p>
+
+  <p>That was correct against 2018 hardware. Consumer-class wireless charging required the receiver coil to sit within roughly a millimetre of the transmitter coil for efficient coupling. That tolerance is achievable when a hand places a phone on a charging mat. It's not achievable when a 3&nbsp;kg drone lands autonomously on a rooftop dock in 15-knot winds, or when a 30&nbsp;kg AMR returns to its base after a 12-hour shift on a workshop floor.</p>
+
+  <p>Industrial inductive modules now operate at 5&ndash;20&nbsp;mm air gap, with significant lateral alignment forgiveness on top of the vertical tolerance. NOA's modules hold efficiency across the full 5&ndash;20&nbsp;mm range without an efficiency cliff. That tolerance accommodates the actual landing-precision distribution of autonomous platforms — including the wear in the landing gear, the snow on the dock, the dust ingress in the alignment sensors, and the GPS drift on the final approach.</p>
+
+  <p>A 1&nbsp;mm tolerance design is a day-one design. A 5&ndash;20&nbsp;mm tolerance design is one that still works after the suspension wears, the rubber compresses, and the sensors drift.</p>
+
+  <h2>What's left of the case for contact charging</h2>
+
+  <p>The third quote from the r/robotics thread — <em>"they can oxidize, get dirty etc, but in the end it's still superior to wireless charging"</em> — is the one that has aged worst. It was true against Qi. It hasn't been true since industrial inductive crossed 50&nbsp;W and 5&nbsp;mm at &gt;90%.</p>
+
+  <p>Contact-charging interfaces still wear out the way the engineering literature said they would: oxidation in humid environments, lost normal force after enough cycles, corrosion in marine air, lost ground continuity once dust and lint accumulate. The <a href="brooklyn-drone-fire-first-known.html">May 2025 NYPD precinct rooftop fire</a> — traced by the operator's CEO to vibration-induced wear at the battery connector — is the field-reported version of the same failure mode the engineering literature has documented for years.</p>
+
+  <p>The question for an engineering team in 2026 isn't <em>"is wireless charging good enough yet."</em> It's whether the contact-charging interface is the right place to hold a fleet's reliability, regulatory exposure, and uptime budget over the next ten years. The objections you ruled it out on have moved. The trade-study deserves a second look.</p>
+
+  <h2>Try it on your own platform</h2>
+
+  <p><strong>NOA</strong>'s <a href="../contact.html">Dev Kit</a> is shipped to qualified engineering teams so the architecture can be benchmarked on-platform before any procurement commitment. Spec the modules into a side-by-side test against your existing contact interface. Measure efficiency, alignment tolerance, thermal behaviour, and FOD response under your operating envelope.</p>
+
+  <p>If the numbers still come back saying contact charging wins, we'd want to know — that's an honest engineering result and we will publish the methodology against ours. The trade-study you ran before 2020 is no longer the trade-study that returns the same answer.</p>
+
+</article>
+
+<!-- ============ SOURCES ============ -->
+<aside class="post-sources" aria-labelledby="sources-h">
+  <div class="post-sources__inner">
+    <h4 id="sources-h">Sources</h4>
+    <p>r/robotics thread "Wireless Charger as game changer" (2026, verbatim quotations as posted). Qi v1.x specification, standard power profile (&le;15&nbsp;W). Conductix Wampfler Wireless Charger 3.0 published efficiency figure. NOA module specifications and bench measurements. Operator service bulletin SOSB-24-V18, May 2025 (NYPD precinct rooftop fire reference; covered in our prior field note).</p>
+  </div>
+</aside>
+
+<!-- ============ END OF POST ============ -->
+<div class="post-end">
+  <div class="post-end__divider" aria-hidden="true"></div>
+  <a href="../blog.html" class="btn">Back to all field notes</a>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <img src="../assets/NOA-Logo-White.svg" alt="NOA" />
+      <p>Australian-engineered contactless power for autonomous systems. Sovereign supply chain. Built for the field.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="../tech.html">Technology</a></li>
+        <li><a href="../contact.html">Dev Kit</a></li>
+        <li><a href="../tech.html#roadmap">250&nbsp;W roadmap</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../about.html#sovereignty">Sovereignty</a></li>
+        <li><a href="../faq.html">FAQ</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="mailto:enquiries@noathebrand.com">enquiries@noathebrand.com</a></li>
+        <li><a href="mailto:dpaull@noathebrand.com">dpaull@noathebrand.com</a> &middot; engineering briefs</li>
+        <li>Sydney, Australia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>&copy; 2026 NOA. All rights reserved.</span>
+    <span>Wireless power. Zero contact.</span>
+  </div>
+</footer>
+
+<script>
+/* Ticker */
+(function(){
+  var items = document.querySelectorAll('.ticker__item');
+  if(items.length < 2) return;
+  var i = 0;
+  var paused = false;
+  var rail = document.getElementById('ticker');
+  if(rail){
+    rail.addEventListener('mouseenter', function(){ paused = true; });
+    rail.addEventListener('mouseleave', function(){ paused = false; });
+  }
+  setInterval(function(){
+    if(paused) return;
+    items[i].classList.remove('is-active');
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-active');
+  }, 5000);
+})();
+</script>
+
+</body>
+</html>
