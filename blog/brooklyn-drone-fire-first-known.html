@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>22 dead. A 2m × 2m room. No exit. — NOA Field notes</title>
-<meta name="description" content="A fire at a Jakarta drone-service facility killed 22 people on 9 December 2025. The OHS gaps the police catalogued are the audit every drone operator should be running this quarter — and the architectural failure underneath them is one wireless inductive power solves for at source." />
+<title>First known customer-facing instance — NOA Field notes</title>
+<meta name="description" content="A high-end police drone caught fire on a Brooklyn precinct rooftop on 12 May 2025. The operator's own root-cause statement — vibration wear at the battery connector — is the disclosure that should reset every drone operator's risk model." />
 
-<meta property="og:title" content="22 dead. A 2m × 2m room. No exit. — NOA" />
-<meta property="og:description" content="The drone industry's worst battery fire is a procurement memo. The OHS gaps the police catalogued are the audit every drone operator should be running this quarter." />
+<meta property="og:title" content="First known customer-facing instance — NOA" />
+<meta property="og:description" content="The disclosure that should reset every drone operator's risk model. The connector is the failure surface — and 500,000 flights is a small denominator." />
 <meta property="og:type" content="article" />
-<meta property="og:image" content="../assets/blog/jakarta-fire-hero.webp" />
+<meta property="og:image" content="../assets/NY-Drone.webp" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="../assets/blog/jakarta-fire-hero.webp" />
+<meta name="twitter:image" content="../assets/NY-Drone.webp" />
 <link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
 <script src="../assets/staging-detect.js"></script>
 
@@ -24,15 +24,15 @@
 /* ============ post page — shared post layout ============ */
 
 /* Per-post hero variant — darker overlay for legibility over busy image */
-.page-hero--post-jakarta{
+.page-hero--post-brooklyn{
   background:
     linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.35)),
-    url('../assets/blog/jakarta-fire-hero.webp') center / cover no-repeat;
+    url('../assets/NY-Drone.webp') center / cover no-repeat;
   min-height: 480px;
   display: flex;
   align-items: center;
 }
-.page-hero--post-jakarta .page-hero__inner{ width: 100%; }
+.page-hero--post-brooklyn .page-hero__inner{ width: 100%; }
 
 /* Post meta line (date · read time) under hero copy */
 .post-meta{
@@ -170,7 +170,7 @@
 }
 
 @media (max-width: 768px){
-  .page-hero--post-jakarta{ min-height: 380px; }
+  .page-hero--post-brooklyn{ min-height: 380px; }
   .post-back{ padding: 22px 22px 0; }
   .post-body{ padding: 22px 22px 40px; font-size: 16px; }
   .post-body h2{ font-size: 22px; margin-top: 36px; }
@@ -214,15 +214,15 @@
 </div>
 
 <!-- ============ PAGE HERO ============ -->
-<section class="page-hero page-hero--post-jakarta">
+<section class="page-hero page-hero--post-brooklyn">
   <div class="page-hero__inner">
     <span class="page-hero__eyebrow">Field note</span>
-    <h1>22 dead. A 2m × 2m room. No exit.</h1>
-    <p class="page-hero__sub">The drone industry's worst battery fire is a procurement memo.</p>
+    <h1>First known customer-facing instance.</h1>
+    <p class="page-hero__sub">The disclosure that should reset every drone operator's risk model.</p>
     <div class="post-meta">
-      <span class="post-meta__date">10 May 2026</span>
+      <span class="post-meta__date">11 May 2026</span>
       <span class="post-meta__dot" aria-hidden="true"></span>
-      <span class="post-meta__read">5 min read</span>
+      <span class="post-meta__read">6 min read</span>
     </div>
   </div>
 </section>
@@ -238,64 +238,67 @@
 <!-- ============ ARTICLE BODY ============ -->
 <article class="post-body">
 
-  <p>On the evening of 9 December 2025, a fire at a seven-storey building in Kemayoran, Central Jakarta, killed twenty-two employees of a publicly-listed industrial drone service provider. Fifteen women, seven men, one of them pregnant. Most died from smoke inhalation and oxygen deprivation rather than burns — the toxic plume rose through the upper floors faster than anyone could escape, because the building had no emergency exit.</p>
+  <p>On 12 May 2025, a high-end police drone operating as part of a major US city's Drone-as-First-Responder programme crashed on the rooftop of a precinct station in Brooklyn. The aircraft caught fire. The lithium-polymer battery had ejected from the airframe and ignited on the rooftop. A local fire battalion responded with a can extinguisher.</p>
 
-  <p>The local CEO was arrested within 48 hours. The charges, filed under Articles 187, 188, and 359 of the Indonesian Criminal Code and the country's 1970 Occupational Safety Law, carry a maximum penalty of life imprisonment.</p>
+  <p>There were no injuries. There was no structural damage beyond the drone itself. By the standards of the drone industry's accumulating fire incidents in 2025 — including the December Jakarta facility fire that killed twenty-two — this is a small story.</p>
 
-  <p>We're publishing this because the OHS gaps Indonesian National Police catalogued in Jakarta are gaps any drone operator can audit against tomorrow morning. The facility was Indonesian. The architectural failure isn't.</p>
+  <p>What's worth reading is the public statement the operator's CEO put out afterwards.</p>
 
-  <h2>What the police found</h2>
+  <h2>The forensic detail</h2>
 
-  <p>Investigators traced ignition to a falling stack of damaged lithium drone batteries in a ground-floor storage room. The stack ignited. The room — two metres by two metres — had no fire-resistant construction and no ventilation. It also housed a heat-generating generator. Employees ran upstairs as the fire spread, and were trapped because the building had no emergency egress.</p>
+  <p>The CEO's statement, attributed in the operator's public support documentation under reference SOSB-24-V18, identified the root cause with unusual specificity:</p>
 
-  <p>The catalogue of failures is, on paper, almost banal:</p>
+  <blockquote>
+    <p>"During high speed flight, the vehicle and battery may experience vibration at the battery connector leading to accumulation of damage with prolonged usage at high speeds. The connector damage will increase resistance between the battery and the vehicle which can lead the battery connector to fail."</p>
+  </blockquote>
 
-  <ul>
-    <li>No safety SOPs for battery storage or handling</li>
-    <li>No battery storage areas meeting any recognised safety standard</li>
-    <li>No designated occupational health and safety officers</li>
-    <li>No adequate emergency routes or evacuation facilities</li>
-    <li>No ventilation or thermal isolation for the battery storage room</li>
-  </ul>
+  <p>In plain English: the contact between the battery and the airframe is a mechanical interface exposed to vibration in the flight envelope the drone is designed to operate in. Vibration accumulates wear at the contact. Wear raises the local electrical resistance. Resistance produces heat. Heat eventually fails the connector.</p>
 
-  <p>None of these gaps required a regulator to invent a new rule to identify. They were already failures against ordinary occupational-safety practice when the building was occupied. The fire revealed them.</p>
+  <p>The same statement classified the rooftop fire as the <strong>"first known customer-facing instance"</strong> of this failure mode, against a fleet that had logged more than 500,000 flights at the point of disclosure.</p>
 
-  <h2>The architectural failure underneath the OHS failure</h2>
+  <h2>Why "first known" is the wrong yardstick</h2>
 
-  <p>The architectural choice that put the batteries in that room in the first place is the part the industry has been quieter about.</p>
+  <p>The framing is generous to the customer. For an operator running a five-year fleet plan it's also a number that can quietly mislead.</p>
 
-  <p>In any drone operation, batteries cycle. They go from charging to flight to inspection to disposal, and at each step they are physically touched, moved, racked, and — if a contact-charging interface is in the loop — plugged in and unplugged again. Damaged batteries accumulate. Batteries that have suffered a hard landing, a swollen cell, a contact-arc event during charging, or simple mechanical wear at the connector all end up in the same place. They have to be stored before they're disposed of correctly.</p>
+  <p>A fleet logging 500,000 flights against one disclosed rooftop fire reads — to an unhurried planner — as a one-in-five-hundred-thousand event. That reading has two problems.</p>
 
-  <p>In the Jakarta facility, that place was a small, unventilated, generator-adjacent room. That choice is what regulators will write rules about over the next eighteen months. The supply-chain question underneath it — why are damaged batteries accumulating at this rate, in this volume, at every drone operator's site? — is the question every operator should be asking now.</p>
+  <p>The first is the failure mode itself. Wear is an accumulator, not a coin-flip. The probability of failure on any given airframe rises with cumulative high-speed-flight time on that specific airframe. The mean fleet age at the point of disclosure is, almost by definition, lower than the mean fleet age in the years that follow. The forward incident rate is structurally higher than the backward one.</p>
 
-  <p>A non-trivial fraction of those damaged batteries trace back to physical contact-charging interfaces — pogo pins, blade contacts, magnetic dock pads. Repeated docking cycles abrade the contact, raise the local resistance, and produce localised heating events that propagate into the cell. The damage shows up at the connector before it shows up in the storage room. Eliminate the connector and the population of damaged batteries shrinks at source.</p>
+  <p>The second is what counts as "known". "First known" is bounded by what the operator and customers chose to report. Field engineers across the industry will tell you privately that connector heat-events at the dock are a common-enough source of return-to-base incidents that they get folded into routine maintenance metrics rather than logged as fire-risk near-misses. The denominator on "first known" is the small set of incidents that escalated to a public fire on a public rooftop.</p>
 
-  <p>Battery damage has many sources beyond the connector — flight loads, environmental cycling, calendar ageing — and contactless charging only addresses one of them. But it addresses the largest single touchpoint in the operator's daily workflow, and it does so without changing operator behaviour.</p>
+  <p>Project the population: a fleet that scales by 10× over the next five years runs five-million flights. Hold the per-flight failure probability constant — generously — and the expected number of rooftop fires is ten. Allow the per-flight probability to rise with cumulative airframe age and the expected count rises further. None of those subsequent fires will be "first known," but each one will land on someone's rooftop, in someone's police precinct, fire station, mining-site supervisor's office, or hospital helipad.</p>
 
-  <h2>The 18-month forward look</h2>
+  <blockquote>
+    <p>Read the failure-mode statement, not the incident summary. That's where the next five-million flights are.</p>
+  </blockquote>
 
-  <p>Five regulators converged on lithium-ion fire risk in twelve months. OSHA's January 2026 letter of interpretation made personal Li-ion battery burns at the workplace recordable on the OSHA 300 log. EASA Safety Information Bulletin 2025-03 reinforced cabin-crew lithium-battery-risk awareness. The NSW Coroners Court opened a formal lithium-ion battery inquiry in December 2025. Queensland Fire Department logged 235 Li-ion fires in FY2024–25 alone. The ACCC tracked a sixfold rise in Li-ion product-safety reports between February 2021 and February 2023.</p>
+  <h2>The connector is the failure surface</h2>
 
-  <p>They're all moving the same way. The Jakarta fire gives the next round of rules a public event to point at.</p>
+  <p>In the operator's own words, the connector accumulates damage under prolonged high-speed flight. That's a clean engineering claim, and it generalises beyond this aircraft, this dock, and this operator.</p>
 
-  <p>For an operator running a drone fleet today, the practical implication is that the OHS audit you'd benefit from running this quarter — the audit against the five-point Indonesian police checklist above — is the audit your insurer, your customers, and your local equivalent of WorkSafe will be running in 2027. The cheapest version of that audit is the voluntary one.</p>
+  <p>Pogo pins, blade contacts, magnetic dock pads — the whole family of physical-contact charging interfaces in the autonomous-platform stack — share the same sensitivity to vibration, to repeated mate-and-demate cycles, to corrosion, to spring fatigue, and to thermal cycling. The engineering literature documents at least six discrete pogo-pin failure modes: gold-plating corrosion, mechanical wear, spring fatigue, contamination, ESD/over-voltage transients, and thermal-expansion misalignment. OSHA's arc-flash guidance (Pub 4472) explicitly identifies "corrosion of conductive contacts" as a primary risk factor.</p>
 
-  <h2>What we'd suggest you ask</h2>
+  <p>Wear, oxidation, contamination, fatigue, ESD — the failures all converge at the connector. Keep the connector in the architecture and you keep the failure surface.</p>
 
-  <p>If you operate any drone fleet larger than a half-dozen units:</p>
+  <p>The wireless inductive alternative isn't exotic. Take the contact away and the pogo-pin failure-mode list collapses — there's no mechanical interface for vibration to wear, no metal for humidity to corrode, nothing left for arc-flash regulations to apply to.</p>
+
+  <h2>What an operator should ask their drone vendor today</h2>
+
+  <p>Three questions are worth raising in the next vendor review.</p>
 
   <ol>
-    <li>Where are damaged batteries stored on your sites today? Is the room thermally isolated, ventilated, and free of heat sources?</li>
-    <li>Are there designated OHS officers with explicit responsibility for battery storage and handling?</li>
-    <li>Have you traced the population of damaged batteries back to their source — flight loads, environmental, or contact-charging-interface wear?</li>
-    <li>Does your charging architecture remove the human from the battery loop?</li>
+    <li><strong>What is your published failure-mode analysis for the contact-charging interface across the dock fleet?</strong> Not "is it reliable" but "what fails first, under what conditions, and at what cumulative use." If the answer is hand-wave, the operator is the failure-mode analysis.</li>
+    <li><strong>What is your incident-classification policy for connector heat-events that don't escalate to fire?</strong> If those events get folded into maintenance, the public failure rate is misleading.</li>
+    <li><strong>What does your dock-architecture road-map look like for contactless charging?</strong> Most serious vendors are exploring it. The ones that aren't are betting against the regulator.</li>
   </ol>
 
-  <p>The fourth question is what wireless inductive charging actually solves for. <strong>NOA</strong> builds Australian-engineered, sealed, contactless wireless-power modules for OEM integration into drone, AMR, ground-robot, and subsea platforms. The modules deliver up to 500&nbsp;W across a 5–20&nbsp;mm air gap, with foreign-object detection that cuts power in under two milliseconds. There's no connector to wear, no exposed metal to oxidise, no operator interaction with a damaged cell.</p>
+  <h2>NOA's position</h2>
 
-  <p>We send a <a href="../contact.html">Dev Kit</a> to qualified engineering teams so the architecture can be evaluated on-platform before any procurement commitment.</p>
+  <p><strong>NOA</strong> designs and manufactures the wireless-power module that sits inside the dock — the picks-and-shovels layer of contactless charging for autonomous platforms. The modules deliver up to 500&nbsp;W across a 5–20&nbsp;mm air gap, at &gt;92% efficiency, with foreign-object detection that cuts power in under two milliseconds. They're sealed against humidity, dust and corrosive environments. They have no exposed metal contacts.</p>
 
-  <p>Twenty-two people died for a lesson the industry could have read in any OHS textbook. The cheapest version is the one we don't have to learn from a fire.</p>
+  <p>We send a <a href="../contact.html">Dev Kit</a> to qualified OEM and integrator engineering teams so the architecture can be tested on-platform before any procurement commitment.</p>
+
+  <p>The fire was small. The disclosure language wasn't. Five-million flights are coming, and the connector is still the failure surface.</p>
 
 </article>
 
@@ -303,7 +306,7 @@
 <aside class="post-sources" aria-labelledby="sources-h">
   <div class="post-sources__inner">
     <h4 id="sources-h">Sources</h4>
-    <p>Wikipedia, "2025 Terra Drone Building fire". DroneXL coverage, 12 December 2025. Nikkei Asia, "Jakarta police find Terra Drone fire caused by improperly stored batteries". OSHA letter of interpretation, 20 January 2026. EASA SIB 2025-03. QFD Commissioner Steve Smith AFSM, submission to Queensland Parliament. ACCC Li-ion consumer-product-safety report.</p>
+    <p>Operator service bulletin SOSB-24-V18 (CEO root-cause statement, May 2025). NYPD Drone-as-First-Responder programme public documentation. OSHA Publication 4472, "Arc Flash and Shock Hazard Awareness". Engineering literature on pogo-pin failure modes (mechanical wear, spring fatigue, gold-plating corrosion, contamination, ESD, thermal-expansion misalignment). Jakarta facility fire, 9 December 2025 (covered in our prior field note).</p>
   </div>
 </aside>
 
