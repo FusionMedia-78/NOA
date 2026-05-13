@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Technology — NOA</title>
-<meta name="description" content="NOA wireless power: 1–500W programmable, up to 93% efficiency, 28°C operating temperature, 5–20mm contactless air gap. Six interchangeable coils, USB-C tuning, FOD/OCP/OVP." />
+<meta name="description" content="NOA wireless power: 1–500W programmable, up to 93% efficiency, 28°C operating temperature, contactless air gap up to 30mm. Six interchangeable coils, USB-C tuning, FOD/OCP/OVP." />
 
 <meta property="og:title" content="NOA Technology" />
 <meta property="og:description" content="Australian-engineered contactless wireless power. 1–500W programmable, up to 93% efficiency, 28°C operating temperature." />
@@ -170,6 +170,69 @@
   line-height: 1.6;
 }
 
+/* Kit contents + Size & Weight block */
+.kit-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+.kit-card{
+  background: var(--c-white);
+  border: 1px solid var(--c-iron);
+  border-radius: 12px;
+  padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+}
+.kit-card__label{
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-mid);
+  margin-bottom: 14px;
+}
+.kit-card h3{
+  font-size: 20px;
+  margin: 0 0 18px;
+  color: var(--c-ink);
+}
+.kit-card ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.kit-card li{
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--c-fog);
+  font-size: 15px;
+  color: var(--c-charcoal);
+  line-height: 1.5;
+}
+.kit-card li:last-child{ border-bottom: 0; }
+.kit-card li strong{
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--c-ink);
+  flex-shrink: 0;
+}
+.kit-card__foot{
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 2px solid var(--c-teal);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--c-ink);
+  font-size: 15px;
+}
+
 /* Spec table */
 .spec-wrap{
   background: var(--c-white);
@@ -331,6 +394,7 @@
 @media (max-width: 980px){
   .tech-intro{ text-align: left; }
   .module-grid{ grid-template-columns: 1fr; }
+  .kit-grid{ grid-template-columns: 1fr; }
   .roadmap{ grid-template-columns: 1fr; }
   .sov-grid{ grid-template-columns: 1fr; gap: 32px; }
   /* On narrow screens hide the background image and fall back to legible light cards */
@@ -402,7 +466,7 @@
     <div class="tech-intro">
       <p class="tech-intro__lead">NOA treats power exactly like data — invisible, continuous.</p>
       <p>Conventional charging is a mechanical problem dressed up as an electrical one. Pogo pins fatigue. Connectors corrode. Manual swaps cap fleet size at the human-tech ratio. Every contact is a maintenance event waiting to happen.</p>
-      <p>NOA replaces the contact entirely. A receiver coil pulls power across a 5–20&nbsp;mm air gap from a transmitter coil — through plastic, glass, paint, even shallow water. The enclosure stays sealed for the life of the platform, and charging starts in under two seconds when the device lands on the pad.</p>
+      <p>NOA replaces the contact entirely. A receiver coil pulls power across an air gap of up to 30&nbsp;mm from a transmitter coil — through plastic, glass, paint, even shallow water. The Dev Kit ships in the 5–20&nbsp;mm band; the wider platform range scales further with coil and integration choices. The enclosure stays sealed for the life of the platform, and charging starts in under two seconds when the device lands on the pad.</p>
     </div>
   </div>
 </section>
@@ -464,12 +528,12 @@
       <article class="module-card">
         <span class="module-card__num">01 · Hardware</span>
         <h3>Transmitter and receiver</h3>
-        <p>Matched 50&nbsp;W TX and RX modules — dimensions <strong>TBC</strong>. Thin enough to integrate inside drone airframes, robot bellies, and wearables that competing wireless systems can't fit.</p>
+        <p>Matched 60&nbsp;×&nbsp;60&nbsp;×&nbsp;14&nbsp;mm TX and RX boards — under 25&nbsp;g each. Thin enough to integrate inside drone airframes, robot bellies, and wearables that competing wireless systems can't fit. 50&nbsp;W nominal, up to 100&nbsp;W peak.</p>
       </article>
       <article class="module-card">
         <span class="module-card__num">02 · Coils</span>
         <h3>Interchangeable antennas</h3>
-        <p>Coil set <strong>TBC</strong>. Match coil diameter to your platform's air gap, alignment tolerance and form factor without redesigning the electronics.</p>
+        <p>Three coil pairs in the box — 35&nbsp;mm, 50&nbsp;mm and 75&nbsp;mm. Match coil diameter to your platform's air gap, alignment tolerance and form factor without redesigning the electronics.</p>
       </article>
       <article class="module-card">
         <span class="module-card__num">03 · Tuning</span>
@@ -492,6 +556,33 @@
         <p>OEMs that move past evaluation can customise both the hardware and the firmware. Design-in support is paired one-to-one with the integration team — not a downloadable SDK.</p>
       </article>
     </div>
+
+    <!-- Kit Contents + Size & Weight -->
+    <div class="kit-grid">
+      <article class="kit-card">
+        <span class="kit-card__label">What's in the box</span>
+        <h3>50 W Kit contents</h3>
+        <ul>
+          <li><span>Transmitter board</span><strong>1 ×&nbsp; input 9–30 V</strong></li>
+          <li><span>Receiver board</span><strong>1 ×&nbsp; output up to 30 V / 5 A (100 W peak)</strong></li>
+          <li><span>Coil pairs</span><strong>3 ×&nbsp; 35 mm · 50 mm · 75 mm</strong></li>
+          <li><span>Cooling fans</span><strong>2 ×&nbsp; 12 V (bench)</strong></li>
+        </ul>
+      </article>
+      <article class="kit-card">
+        <span class="kit-card__label">Dimensions &amp; weight</span>
+        <h3>Size &amp; weight</h3>
+        <ul>
+          <li><span>TX / RX boards</span><strong>60 × 60 × 14 mm</strong></li>
+          <li><span>Board weight</span><strong>~19 g TX · ~25 g RX</strong></li>
+          <li><span>Coils</span><strong>10–37 g (size-dependent)</strong></li>
+          <li><span>Fans</span><strong>40 × 40 × 15 mm · ~20 g each</strong></li>
+        </ul>
+        <div class="kit-card__foot">
+          <span>Total kit weight</span><span>~208 g</span>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -511,7 +602,7 @@
       </div>
       <div class="spec-row" role="row">
         <div class="spec-cell spec-cell--label">Power output</div>
-        <div class="spec-cell spec-cell--module">up to 50 W programmable</div>
+        <div class="spec-cell spec-cell--module">50 W nominal · up to 100 W peak</div>
         <div class="spec-cell">1 W – 500 W</div>
       </div>
       <div class="spec-row" role="row">
@@ -527,26 +618,21 @@
       <div class="spec-row" role="row">
         <div class="spec-cell spec-cell--label">Air gap</div>
         <div class="spec-cell spec-cell--module">5–20 mm (coil-dependent)</div>
-        <div class="spec-cell">up to 20 mm</div>
+        <div class="spec-cell">up to 30 mm</div>
       </div>
       <div class="spec-row" role="row">
         <div class="spec-cell spec-cell--label">Module dimensions</div>
-        <div class="spec-cell spec-cell--module">TBC</div>
+        <div class="spec-cell spec-cell--module">60 × 60 × 14 mm (TX &amp; RX boards)</div>
         <div class="spec-cell">scales with power class</div>
       </div>
       <div class="spec-row" role="row">
         <div class="spec-cell spec-cell--label">Input voltage</div>
-        <div class="spec-cell spec-cell--module">12–24 V DC</div>
+        <div class="spec-cell spec-cell--module">9–30 V DC</div>
         <div class="spec-cell">configurable</div>
       </div>
       <div class="spec-row" role="row">
-        <div class="spec-cell spec-cell--label">Input current</div>
-        <div class="spec-cell spec-cell--module">up to 4.8 A</div>
-        <div class="spec-cell">scales with power class</div>
-      </div>
-      <div class="spec-row" role="row">
         <div class="spec-cell spec-cell--label">Output</div>
-        <div class="spec-cell spec-cell--module">up to 24 V / 4 A</div>
+        <div class="spec-cell spec-cell--module">up to 30 V / 5 A (100 W peak)</div>
         <div class="spec-cell">configurable</div>
       </div>
       <div class="spec-row" role="row">
@@ -571,7 +657,7 @@
       </div>
     </div>
 
-    <p class="spec-foot">Certifications relevant to your jurisdiction (CE, FCC, MIL-STD, etc.) are confirmed during the integration conversation and matched to the deployment context.</p>
+    <p class="spec-foot">NOA guarantees pre-compliance measures on the Dev Kit and runs pre-compliance testing on the customer's behalf during integration. Full certifications relevant to your jurisdiction (CE, FCC, MIL-STD, etc.) are confirmed during the integration conversation and matched to the deployment context.</p>
   </div>
 </section>
 
@@ -580,7 +666,7 @@
   <div class="section__inner">
     <div class="section__head">
       <h2 id="roadmap-h">Power family — 1 W to 500 W on one architecture</h2>
-      <p>The Dev Kit is one node in a power family. Same protections, same configurator, same integration workflow at every scale.</p>
+      <p>The Dev Kit is one node in a power family. Same protections, same configurator, same integration workflow at every scale. Above 500&nbsp;W, NOA engages on a project / partnership basis — higher-power builds are scoped one-to-one with the integration team.</p>
     </div>
 
     <div class="roadmap">
@@ -595,9 +681,9 @@
         <p>Backwards-compatible with 50&nbsp;W applications and forward-compatible with most industrial fleet hardware. Same architecture, broader power envelope.</p>
       </article>
       <article class="roadmap-card">
-        <span class="roadmap-card__chip">Platform ceiling</span>
+        <span class="roadmap-card__chip">Production tier</span>
         <div class="roadmap-card__stat">500<sub>W</sub></div>
-        <p>Heavy platforms — large robotics, marine ROVs, ground vehicles. The architecture scales without redesigning the host integration.</p>
+        <p>The upper bound of the standard product family — heavy platforms, large robotics, marine ROVs, ground vehicles. Above this, NOA engages on a project / partnership basis to scope the build to the platform.</p>
       </article>
     </div>
   </div>
@@ -609,13 +695,13 @@
     <div class="sov-grid">
       <div>
         <h2 id="sov-h">Sovereign by design.</h2>
-        <p>NOA is designed in Australia and engineered out of Cicada Innovations — Australia's deeptech incubator at Eveleigh, Sydney. The Hornsby Works manufacturing facility is secured and is being fitted out for industrial-scale production under the current raise. The supply chain is Australian-sourced for critical components, by deliberate decision.</p>
+        <p>NOA is designed in Australia and engineered in Sydney, with operations across two spaces. The team works out of Cicada Innovations — Australia's deeptech incubator at Eveleigh, Sydney — alongside the country's largest deep-tech and hardware community, and from NOA's R&amp;D and engineering facility in North West Sydney where the day-to-day build happens. Manufacturing capability is being scaled under the current raise. The supply chain is Australian-sourced for critical components, by deliberate decision.</p>
         <p>The capability is designed to fit AUKUS Pillar 2 sourcing requirements from day one — no retrofitted compliance documentation.</p>
       </div>
       <ul class="sov-list" aria-label="Sovereignty markers">
         <li><span class="sov-list__dot" aria-hidden="true"></span>Australian-designed wireless power IP</li>
-        <li><span class="sov-list__dot" aria-hidden="true"></span>Engineered at Cicada Innovations, Eveleigh NSW</li>
-        <li><span class="sov-list__dot" aria-hidden="true"></span>Hornsby Works manufacturing — scaling under current raise</li>
+        <li><span class="sov-list__dot" aria-hidden="true"></span>Operating from Cicada Innovations (Eveleigh, NSW)</li>
+        <li><span class="sov-list__dot" aria-hidden="true"></span>R&amp;D and engineering facility, North West Sydney</li>
         <li><span class="sov-list__dot" aria-hidden="true"></span>Australian-sourced critical components</li>
         <li><span class="sov-list__dot" aria-hidden="true"></span>Designed for AUKUS Pillar 2 sourcing rules</li>
       </ul>
